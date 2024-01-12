@@ -41,5 +41,5 @@ const expenseSchema = new Schema(
   }
 );
 
-const Expense = new model("Expense", expenseSchema);
+const Expense = model("Expense", expenseSchema);
 export default Expense;
