@@ -55,7 +55,7 @@ const deleteBudget = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget updated successfully",
+    message: "budget deleted successfully",
     data: result,
   });
 });
