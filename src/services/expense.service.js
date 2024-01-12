@@ -30,7 +30,28 @@ const deleteExpense = async (id) => {
   const result = await Expense.findByIdAndDelete(id);
   return result;
 };
+
+const getBudgetAndExpenseOverview = async (userId) => {
+  const findBudgetsAndExpenses = await Expense.find({
+    user: userId,
+  }).populate({
+    path: "budget",
+    populate: [{ path: "category" }],
+  });
+  const budgetAndExpenseOverview = findBudgetsAndExpenses?.map((cur) => ({
+    budget: cur?.budget?.name,
+    expense: cur?.name,
+    percentageSpent:
+      cur?.budget?.amount && cur?.amount
+        ? (Number(cur.budget.amount) / Number(cur.amount)) * 100
+        : 0,
+    month: cur?.budget?.month,
+    category: cur?.budget?.category?.title,
+  }));
+  return budgetAndExpenseOverview || [];
+};
 const expenseServices = {
+  getBudgetAndExpenseOverview,
   postExpenseIntoDB,
   getAllExpenseByQuery,
   getSingleExpense,

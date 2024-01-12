@@ -1,5 +1,7 @@
 import httpStatus from "http-status";
 import expenseServices from "../services/expense.service.js";
+import catchAsync from "../utils/catchAsync.js";
+import sendResponse from "../utils/sendResponse.js";
 
 const insertExpenseIntoDB = catchAsync(async (req, res) => {
   const { userId } = req?.user;
@@ -20,6 +22,18 @@ const getAllExpenseByQuery = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "expenses retrived successfully",
+    data: result,
+  });
+});
+const getBudgetAndExpenseOverview = catchAsync(async (req, res) => {
+  const { userId } = req?.user;
+  req.query.user = userId;
+  const result = await expenseServices.getBudgetAndExpenseOverview(userId);
+  console.log(result);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "budget and expenses overview retrived successfully",
     data: result,
   });
 });
@@ -52,6 +66,7 @@ const deleteExpense = catchAsync(async (req, res) => {
 });
 
 const expenseControllers = {
+  getBudgetAndExpenseOverview,
   insertExpenseIntoDB,
   getAllExpenseByQuery,
   getSingleExpense,

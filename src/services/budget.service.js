@@ -5,7 +5,6 @@ const insertBudgetIntoDB = async (payload) => {
   const result = await Budget.create(payload);
   return result;
 };
-
 const getbudgetsByQuery = async (userId, payload) => {
   const query = userId ? { ...payload, user: userId } : { ...payload };
   const budgetModel = new QueryBuilder(Budget.find(), query)
@@ -25,7 +24,6 @@ const getSingleBudget = async (id) => {
   const result = await Budget.findById(id);
   return result;
 };
-
 const updateBudget = async (id, userId, payload) => {
   const result = await Budget.findOneAndUpdate(
     { _id: id, user: userId },
