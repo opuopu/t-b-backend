@@ -9,6 +9,11 @@ router.post(
   expenseControllers.insertExpenseIntoDB
 );
 router.get(
+  "/overview",
+  auth(USER_ROLE.HOMEOWNER),
+  expenseControllers.getBudgetAndExpenseOverview
+);
+router.get(
   "/",
   auth(USER_ROLE.HOMEOWNER),
   expenseControllers.getAllExpenseByQuery
