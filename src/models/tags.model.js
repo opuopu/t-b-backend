@@ -1,14 +1,15 @@
 import { Schema, model } from "mongoose";
-const homeSchema = new Schema(
+
+const tagsSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "title is required"],
+      required: [true, "tags is required"],
     },
     user: {
       type: Schema.Types.ObjectId,
-      required: [true, "user id is required"],
       ref: "User",
+      required: [true, "user id is required"],
     },
   },
   {
@@ -16,5 +17,5 @@ const homeSchema = new Schema(
   }
 );
 
-const Home = model("Home", homeSchema);
-export default Home;
+const Tags = model("Tags", tagsSchema);
+export default Tags;
