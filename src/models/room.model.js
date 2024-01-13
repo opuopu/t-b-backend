@@ -9,15 +9,11 @@ const roomSchema = new Schema(
     home: {
       type: Schema.Types.ObjectId,
       ref: "Home",
-      required: true,
+      required: [true, "home information  is required"],
     },
     user: {
       type: Schema.Types.ObjectId,
       ref: "User",
-    },
-    preset: {
-      type: Schema.Types.ObjectId,
-      ref: "RoomPreset",
     },
   },
   {
