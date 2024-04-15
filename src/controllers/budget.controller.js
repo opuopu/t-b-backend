@@ -3,6 +3,7 @@ import budgetCategoryServices from "../services/budgetCategory.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 import budgetServices from "../services/budget.service.js";
+import dayjs from "dayjs";
 
 const insertBudgetIntoDB = catchAsync(async (req, res) => {
   const { userId } = req.user;
@@ -19,6 +20,7 @@ const insertBudgetIntoDB = catchAsync(async (req, res) => {
 const getbudgetsByQuery = catchAsync(async (req, res) => {
   const { userId } = req.user;
   req.query.user = userId;
+  req.query.month = dayjs(new Date()).format("YYYY-MM");
   const result = await budgetServices.getbudgetsByQuery(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,

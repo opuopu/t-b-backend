@@ -6,23 +6,24 @@ import mongoose from "mongoose";
 import Expense from "../models/expense.model.js";
 const insertBudgetIntoDB = async (payload) => {
   const { month } = payload;
-  const [year, mon] = month.split("-");
-  const formatedDate = `${year}-${mon}-01T00:00:00.000Z`;
+  // const [year, mon] = month.split("-");
+  // const formatedDate = `${year}-${mon}-01T00:00:00.000Z`;
   const isExistBudget = await Budget.findOne({
     user: payload?.user,
     category: payload?.category,
+    month: month,
   });
   if (isExistBudget) {
     throw new AppError(
       httpStatus.CONFLICT,
-      "Budget Already Exist With This Category"
+      "Budget Already Exist With This Category in this month"
     );
   }
-  payload.month = new Date(formatedDate);
   const result = await Budget.create(payload);
   return result;
 };
 const getbudgetsByQuery = async (query) => {
+  console.log(new Date());
   const budgetModel = new QueryBuilder(
     Budget.find().populate("category"),
     query
@@ -44,7 +45,7 @@ const getSingleBudget = async (id) => {
   return result;
 };
 
-const updateBudget = async (id, userId, payload) => {
+const updateBudget = async (id, payload) => {
   const result = await Budget.findByIdAndUpdate(id, payload, {
     new: true,
   });
@@ -77,7 +78,6 @@ const deleteBudget = async (id) => {
 };
 const budgetVsexpense = async (query) => {
   const { month, user } = query;
-  console.log(user);
   const userObjectId = new mongoose.Types.ObjectId(user);
   const [year, monthValue] = month?.split("-").map(Number);
   const startDate = new Date(Date.UTC(year, monthValue - 1, 1));
