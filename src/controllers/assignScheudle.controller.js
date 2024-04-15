@@ -89,7 +89,6 @@ const employeeWorkDetailsByScheduleId = catchAsync(async (req, res) => {
   });
 });
 const getScheduleDataByEmployee = catchAsync(async (req, res) => {
-  console.log(req.user, "hitted");
   const result = await AssignScheduleServices.getScheduleDataByEmployee(
     req?.user?.userId
   );

@@ -88,5 +88,6 @@ export const nextYear = (date) => {
 };
 
 export const findArrayIntersection = (workingdays, weekend) => {
+  console.log(workingdays, weekend);
   return workingdays.filter((item) => weekend.includes(item));
 };

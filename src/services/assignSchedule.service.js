@@ -4,6 +4,7 @@ import AssignSchedule from "../models/AssignWorkSchedule.model.js";
 import AppError from "../errors/AppError.js";
 import httpStatus from "http-status";
 import { findArrayIntersection } from "../utils/schedule.utils.js";
+import Employee from "../models/employee.model.js";
 const insertScheduleIntoDb = async (payload) => {
   const findSchedule = await AssignSchedule.findOne({
     employee: payload?.employee,
@@ -11,13 +12,16 @@ const insertScheduleIntoDb = async (payload) => {
       $in: payload?.workingDays,
     },
   });
-  if (findArrayIntersection(payload?.workingDays, payload?.weekend)) {
-    if (findSchedule) {
-      throw new AppError(
-        httpStatus.BAD_REQUEST,
-        "you cannot assign the same date to both working days and weekends"
-      );
-    }
+  const dateConflict = findArrayIntersection(
+    payload?.workingDays,
+    payload?.weekend
+  );
+
+  if (dateConflict.length < 0) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "you cannot assign the same date to both working days and weekends"
+    );
   }
   if (findSchedule) {
     throw new AppError(
@@ -25,8 +29,8 @@ const insertScheduleIntoDb = async (payload) => {
       "day conflict. employee has already assigned during this days"
     );
   }
-  const result = await AssignSchedule.create(payload);
-  return result;
+  // const result = await AssignSchedule.create(payload);
+  // return result;
 };
 const getAllAssignSchedule = async (query) => {
   const result = await AssignSchedule.find(query);
@@ -175,16 +179,14 @@ const employeeWorkDetailsByScheduleId = async (id) => {
       },
     },
   ]);
-  console.log(result);
   return result;
 };
 const getScheduleDataByEmployee = async (id) => {
-  const employeeId = new Types.ObjectId(id);
-  console.log(employeeId);
+  const findEmployeeId = await Employee.findOne({ user: id }).select("_id");
   const result = await AssignSchedule.aggregate([
     {
       $match: {
-        employee: employeeId,
+        employee: findEmployeeId?._id,
       },
     },
     {
