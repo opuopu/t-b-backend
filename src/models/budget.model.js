@@ -28,11 +28,6 @@ const budgetSchema = new Schema(
       type: String,
       required: [true, "month is required"],
     },
-    progress: {
-      type: Number,
-      default: 0,
-      max: 1,
-    },
     progressPercentage: {
       type: Number,
       default: 0,
@@ -41,8 +36,13 @@ const budgetSchema = new Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
-
+budgetSchema.virtual("progress").get(function () {
+  return this.progressPercentage / 100;
+});
 const Budget = model("Budget", budgetSchema);
 export default Budget;

@@ -28,14 +28,10 @@ const InsertExpenseIntoDb = async (payload) => {
     if (!result[0]) {
       throw new AppError(httpStatus.BAD_REQUEST, "failed to create expense");
     }
-    const progress = payload?.amount / findBudget?.amount;
-    const updatedProgress = Math.min(progress + findBudget.progress, 1);
+
     const updateBudget = await Budget.findByIdAndUpdate(
       payload.budget,
       {
-        $set: {
-          progress: updatedProgress,
-        },
         $inc: {
           progressPercentage: (payload?.amount / findBudget?.amount) * 100,
           remainingAmount: -payload?.amount,
@@ -105,7 +101,8 @@ const deleteExpense = async (id) => {
       deleteExpense?.budget,
       {
         $inc: {
-          progress: -(deleteExpense?.amount / findBudget.amount) * 100,
+          progressPercentage:
+            -(deleteExpense?.amount / findBudget.amount) * 100,
           remainingAmount: deleteExpense?.amount,
         },
       },
