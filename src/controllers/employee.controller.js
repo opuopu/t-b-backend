@@ -58,8 +58,7 @@ const AdditionalTask = catchAsync(async (req, res) => {
   });
 });
 const GetTotalGroceries = catchAsync(async (req, res) => {
-  console.log(req.user);
-  req.query.employee = req.user.userId;
+  req.query.employee = req?.user?.employeeId;
   const result = await employeeServices.GetTotalGroceries(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,

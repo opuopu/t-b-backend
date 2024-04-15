@@ -25,9 +25,9 @@ const insertUserGroceryListsIntoDB = catchAsync(async (req, res) => {
   });
 });
 const getgroceryListByEmployee = catchAsync(async (req, res) => {
-  const { userId } = req.user;
-  req.query.employee = userId;
-
+  const { employeeId } = req.user || {};
+  req.query.employee = employeeId;
+  console.log("hitted");
   const result = await userGroceryListServices.getgroceryListByEmployee(
     req.query
   );
@@ -54,7 +54,7 @@ const getuserSingleGroceryList = catchAsync(async (req, res) => {
   });
 });
 const findGroceryFromGroceryLists = catchAsync(async (req, res) => {
-  const { userId } = req?.user;
+  const { userId } = req?.user || {};
   req.query.homeOwner = userId;
   const result = await userGroceryListServices.findGroceryFromGroceryLists(
     req.query
@@ -129,9 +129,9 @@ const markAsComplete = catchAsync(async (req, res) => {
 });
 const sendBuyRequest = catchAsync(async (req, res) => {
   console.log("hitted");
-  const { homeOwnerId, userId } = req?.user || {};
+  const { homeOwnerId, employeeId } = req?.user || {};
   req.body.homeOwner = homeOwnerId;
-  req.body.employee = userId;
+  req.body.employee = employeeId;
   const result = await userGroceryListServices.sendBuyRequest(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
