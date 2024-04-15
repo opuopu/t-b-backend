@@ -28,8 +28,8 @@ const getAllAdditionalTaskByHomeOwner = catchAsync(async (req, res) => {
   });
 });
 const getAllAdditionalTaskByEmployee = catchAsync(async (req, res) => {
-  const { userId } = req.user;
-  req.query.employee = userId;
+  const { employeeId } = req.user || {};
+  req.query.employee = employeeId;
   const result = await additionalTaskServices.getAllAditionalTaskByEmployee(
     req.query
   );

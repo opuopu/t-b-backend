@@ -170,6 +170,7 @@ const SigninEmployee = async (payload) => {
   const { password: newsdfd, ...others } = user.toObject();
   const jwtPayload = {
     userId: user?._id,
+    employeeId: findEmployee?._id,
     email: user.email,
     role: user.role,
     id: user?.id,

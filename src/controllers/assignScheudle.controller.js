@@ -9,7 +9,7 @@ const insertScheduleIntoDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "done",
+    message: "task added successfully",
     data: result,
   });
 });
@@ -90,7 +90,7 @@ const employeeWorkDetailsByScheduleId = catchAsync(async (req, res) => {
 });
 const getScheduleDataByEmployee = catchAsync(async (req, res) => {
   const result = await AssignScheduleServices.getScheduleDataByEmployee(
-    req?.user?.id
+    req?.user?.employeeId
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,

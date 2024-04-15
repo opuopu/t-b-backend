@@ -8,9 +8,9 @@ import QueryBuilder from "../builder/QueryBuilder.js";
 import TaskCompletationHistory from "../models/taskCompleteHistory.model.js";
 import AppError from "../errors/AppError.js";
 import { dateCompare } from "../utils/date.utils.js";
+import Employee from "../models/employee.model.js";
 const insertAdditionalTaskIntoDb = async (payload) => {
   const { workingDate } = payload;
-
   let status;
   let nextOccurrence;
   if (payload.recurrence === "weekly") {
@@ -164,7 +164,6 @@ const markAsComplete = async (id, payload) => {
       new: true,
       session,
     });
-    console.log("result", result);
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,

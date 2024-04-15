@@ -29,8 +29,8 @@ const insertScheduleIntoDb = async (payload) => {
       "day conflict. employee has already assigned during this days"
     );
   }
-  // const result = await AssignSchedule.create(payload);
-  // return result;
+  const result = await AssignSchedule.create(payload);
+  return result;
 };
 const getAllAssignSchedule = async (query) => {
   const result = await AssignSchedule.find(query);
@@ -182,11 +182,10 @@ const employeeWorkDetailsByScheduleId = async (id) => {
   return result;
 };
 const getScheduleDataByEmployee = async (id) => {
-  const findEmployeeId = await Employee.findOne({ user: id }).select("_id");
   const result = await AssignSchedule.aggregate([
     {
       $match: {
-        employee: findEmployeeId?._id,
+        employee: new Types.ObjectId(id),
       },
     },
     {
