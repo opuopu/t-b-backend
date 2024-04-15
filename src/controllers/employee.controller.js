@@ -48,7 +48,8 @@ const deleteAnEmployee = catchAsync(async (req, res) => {
   });
 });
 const AdditionalTask = catchAsync(async (req, res) => {
-  req.query.employee = req.user.userId;
+  console.log(req.user);
+  req.query.employee = req?.user?.employeeId;
   const result = await employeeServices.GetTotalAdditionalTask(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,

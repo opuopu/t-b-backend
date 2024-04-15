@@ -41,6 +41,7 @@ const deleteEmployee = async (id) => {
 };
 
 const GetTotalAdditionalTask = async (query) => {
+  console.log(query);
   if (!query?.employee) {
     return null;
   }
@@ -48,7 +49,7 @@ const GetTotalAdditionalTask = async (query) => {
   return result;
 };
 const GetTotalGroceries = async (query) => {
-  console.log(query)
+  console.log(query);
   if (!query?.employee) {
     return [];
   }
