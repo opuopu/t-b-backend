@@ -7,9 +7,11 @@ import { createToken, verifyToken } from "../utils/auth.utils.js";
 import config from "../config/index.js";
 import Otp from "../models/Otp.model.js";
 import bcrypt from "bcrypt";
-import Employee from "../models/employee.model.js";
+
 import { generateNewEmployeeId } from "../utils/employee.utils.js";
 import HomeOwner from "../models/homeOwner.model.js";
+import sendEmail from "../utils/sendEmail.js";
+import Employee from "../models/employee.model.js";
 // create homeOwner
 const signupHomeOwnerIntoDB = async (payload) => {
   const { email } = payload;
@@ -40,6 +42,7 @@ const signupEmployeeIntoDb = async (payload) => {
     needPasswordChange: true,
     role: "employee",
     verified: true,
+
     id: id,
   };
   const user = await User.isUserExist(email);
@@ -54,14 +57,16 @@ const signupEmployeeIntoDb = async (payload) => {
   try {
     session.startTransaction();
     result = await User.create([authObj], { session });
-    if (!result) {
+    if (!result[0]) {
       throw new AppError(httpStatus.BAD_REQUEST, "Somethign Went Wrong");
     }
+    const userId = result[0]?._id;
+
     const insertEmployeeDetails = await Employee.create(
       [
         {
           ...others,
-          user: result[0]?._id,
+          user: userId,
           id: id,
         },
       ],
@@ -135,20 +140,17 @@ const SigninHomeOwner = async (payload) => {
 // signi
 const SigninEmployee = async (payload) => {
   const { email, password } = payload;
-  console.log(email);
-  if (!email) {
-    throw new AppError(httpStatus.BAD_REQUEST, "please provide an email");
-  }
   const user = await User.isUserExist(email);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "user not exist with this email!");
   }
+  const findEmployee = await Employee.findOne({ id: user?.id });
   if (user?.role !== "employee") {
     throw new AppError(httpStatus.NOT_FOUND, "you are not authorized!");
   }
-  const findEmployee = await Employee.findOne({ id: user?.id });
-  if (!findEmployee) {
-    throw new AppError(httpStatus.NOT_FOUND, "user not exist with this email!");
+
+  if (!findEmployee || findEmployee?.isDeleted) {
+    throw new AppError(httpStatus.NOT_FOUND, "your account is deleted!");
   }
   const { password: hasedPassword } = user;
   const isPasswordMatched = await User.isPasswordMatched(
@@ -299,6 +301,18 @@ const resetPassword = async (id, payload) => {
   return result;
 };
 
+// send email after signup
+
+const sendEmailAndPassword = async (payload) => {
+  await sendEmail(
+    payload?.email,
+    "Your Tidy Bayti Gmail And Password",
+    "Your Gmail And Password Is:",
+    `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;"><p>Email: ${payload?.email}</p><p>Password: ${payload?.password}</p></div>
+  `
+  );
+};
+
 const authServices = {
   SigninHomeOwner,
   refreshToken,
@@ -307,5 +321,6 @@ const authServices = {
   signupHomeOwnerIntoDB,
   signupEmployeeIntoDb,
   SigninEmployee,
+  sendEmailAndPassword,
 };
 export default authServices;

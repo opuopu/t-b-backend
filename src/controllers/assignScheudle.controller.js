@@ -90,7 +90,7 @@ const employeeWorkDetailsByScheduleId = catchAsync(async (req, res) => {
 });
 const getScheduleDataByEmployee = catchAsync(async (req, res) => {
   const result = await AssignScheduleServices.getScheduleDataByEmployee(
-    req?.user?.userId
+    req?.user?.id
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
