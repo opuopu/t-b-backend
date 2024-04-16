@@ -19,6 +19,11 @@ router.get(
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
   AssignScheduleControllers.getSaturdayData
 );
+router.get(
+  "/friday",
+  auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
+  AssignScheduleControllers.getFridayData
+);
 router.post(
   "/",
   auth(USER_ROLE.HOMEOWNER),

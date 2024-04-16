@@ -81,6 +81,15 @@ const resetPassword = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const sendEmployeeEmailAndPassword = catchAsync(async (req, res) => {
+  const result = await authServices.sendEmailAndPassword(req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "email sent succesfully",
+    data: result,
+  });
+});
 const authControllers = {
   signupHomeOwnerIntoDB,
   signupEmployeeIntoDb,
@@ -89,5 +98,6 @@ const authControllers = {
   forgotPassword,
   resetPassword,
   SigninEmployee,
+  sendEmployeeEmailAndPassword,
 };
 export default authControllers;

@@ -37,5 +37,10 @@ router.patch(
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
   authControllers.resetPassword
 );
+router.post(
+  "/send-email",
+  auth(USER_ROLE.HOMEOWNER),
+  authControllers.sendEmployeeEmailAndPassword
+);
 const authRoutes = router;
 export default authRoutes;

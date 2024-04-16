@@ -68,6 +68,15 @@ const getSaturdayData = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getFridayData = catchAsync(async (req, res) => {
+  const result = await AssignScheduleServices.getFridayData(req?.user?.userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "friday data retrived successfully",
+    data: result,
+  });
+});
 const getWeekendData = catchAsync(async (req, res) => {
   const result = await AssignScheduleServices.getWeekendData(req?.user?.userId);
   sendResponse(res, {
@@ -107,6 +116,7 @@ const AssignScheduleControllers = {
   getDataFromSundayToThursday,
   getWeekendData,
   getSaturdayData,
+  getFridayData,
   employeeWorkDetailsByScheduleId,
   getScheduleDataByEmployee,
 };

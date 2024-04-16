@@ -140,6 +140,47 @@ const getSaturdayData = async (userId) => {
 
   return result;
 };
+const getFridayData = async (userId) => {
+  const userObjectId = new Types.ObjectId(userId);
+  const result = await AssignSchedule.aggregate([
+    {
+      $match: {
+        homeOwner: userObjectId,
+        workingDays: {
+          $in: ["Fri"],
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "employees",
+        localField: "employee",
+        foreignField: "_id",
+        as: "employee",
+      },
+    },
+    {
+      $unwind: "$employee",
+    },
+    {
+      $lookup: {
+        from: "workschedules",
+        localField: "_id",
+        foreignField: "schedule",
+        as: "schedules",
+      },
+    },
+    {
+      $project: {
+        _id: "$_id",
+        employee: "$employee",
+        schedules: "$schedules",
+      },
+    },
+  ]);
+
+  return result;
+};
 
 const getWeekendData = async (userId) => {
   const result = await AssignSchedule.find({ homeOwner: userId })
@@ -196,6 +237,51 @@ const getScheduleDataByEmployee = async (id) => {
         as: "schedules",
       },
     },
+    {
+      $unwind: "$schedules", // Unwind the schedules array
+    },
+    {
+      $lookup: {
+        from: "rooms",
+        localField: "schedules.room",
+        foreignField: "_id",
+        as: "schedules.room",
+      },
+    },
+    {
+      $unwind: {
+        path: "$schedules.room",
+        preserveNullAndEmptyArrays: true, // Preserve documents without a matching room
+      },
+    },
+    {
+      $lookup: {
+        from: "homes",
+        localField: "schedules.room.home",
+        foreignField: "_id",
+        as: "schedules.room.home",
+      },
+    },
+
+    {
+      $addFields: {
+        "schedules.room": { $ifNull: ["$schedules.room", {}] }, // Replace null with empty object
+      },
+    },
+    {
+      $unwind: {
+        path: "$schedules.room.home",
+        preserveNullAndEmptyArrays: true, // Preserve documents without a matching home
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        employee: { $first: "$employee" },
+        // Reconstruct the schedules array
+        schedules: { $push: "$schedules" },
+      },
+    },
   ]);
   return result;
 };
@@ -208,6 +294,7 @@ const AssignScheduleServices = {
   getDataFromSundayToThursday,
   getWeekendData,
   getSaturdayData,
+  getFridayData,
   getScheduleDataByEmployee,
   employeeWorkDetailsByScheduleId,
 };
