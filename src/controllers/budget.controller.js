@@ -9,6 +9,7 @@ const insertBudgetIntoDB = catchAsync(async (req, res) => {
   const { userId } = req.user;
   req.body.remainingAmount = req.body.amount;
   req.body.user = userId;
+  req.body.month = dayjs(req?.body?.month).format("YYYY-MM");
   const result = await budgetServices.insertBudgetIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,

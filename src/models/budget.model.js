@@ -13,7 +13,6 @@ const budgetSchema = new Schema(
     },
     amountType: {
       type: String,
-      enum: ["bhd", "usd"],
       required: [true, "amount type is required"],
     },
     amount: {

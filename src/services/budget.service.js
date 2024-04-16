@@ -23,7 +23,7 @@ const insertBudgetIntoDB = async (payload) => {
   return result;
 };
 const getbudgetsByQuery = async (query) => {
-  console.log(new Date());
+  console.log(query);
   const budgetModel = new QueryBuilder(
     Budget.find().populate("category"),
     query

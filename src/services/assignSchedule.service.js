@@ -265,21 +265,31 @@ const getScheduleDataByEmployee = async (id) => {
 
     {
       $addFields: {
-        "schedules.room": { $ifNull: ["$schedules.room", {}] }, // Replace null with empty object
+        "schedules.room": { $ifNull: ["$schedules.room", {}] },
       },
     },
     {
       $unwind: {
         path: "$schedules.room.home",
-        preserveNullAndEmptyArrays: true, // Preserve documents without a matching home
+        preserveNullAndEmptyArrays: true,
       },
     },
     {
       $group: {
         _id: "$_id",
+        workingDays: { $first: "$workingDays" },
+        weekend: { $first: "$weekend" },
         employee: { $first: "$employee" },
         // Reconstruct the schedules array
-        schedules: { $push: "$schedules" },
+        schedules: {
+          $push: {
+            $cond: {
+              if: { $eq: ["$schedules.room", {}] },
+              then: { $mergeObjects: ["$schedules", { room: null }] },
+              else: "$schedules",
+            },
+          },
+        },
       },
     },
   ]);
