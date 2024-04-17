@@ -26,7 +26,7 @@ router.patch(
   additionalTaskControllers.UpdateAdditionalTask
 );
 router.patch(
-  "/re-schedule/:id",
+  "/assign-to-others/:id",
   auth(USER_ROLE.HOMEOWNER),
   additionalTaskControllers.UpdateAdditionalTask
 );

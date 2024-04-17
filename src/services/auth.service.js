@@ -110,7 +110,7 @@ const SigninHomeOwner = async (payload) => {
   //     "please verify your account first!"
   //   );
   // }
-  const date = new Date();
+
   const { password: newsdfd, ...others } = user.toObject();
 
   const jwtPayload = {

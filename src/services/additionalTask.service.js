@@ -13,7 +13,7 @@ const insertAdditionalTaskIntoDb = async (payload) => {
   const { workingDate } = payload;
   let status;
   let nextOccurrence;
-  if (payload.recurrence === "weekly") {
+  if (payload.recurrence === "nm") {
     status = "ongoing";
     nextOccurrence = nextWeekDay(workingDate);
   } else if (payload.recurrence === "monthly") {
@@ -49,7 +49,10 @@ const insertAdditionalTaskIntoDb = async (payload) => {
   }
 };
 const getAllAdditionlTask = async (query) => {
-  const additionalTaskModel = new QueryBuilder(AdditionalTask.find(), query)
+  const additionalTaskModel = new QueryBuilder(
+    AdditionalTask.find().populate("employee"),
+    query
+  )
     .search(["name"])
     .filter()
     .paginate()
@@ -308,7 +311,7 @@ const UpdateAdditionalTask = async (id, payload) => {
     await notificationServices.insertNotificationIntoDB(
       [
         {
-          receiver: payload.employee,
+          receiver: payload?.employee,
           refference: result?._id,
           message: TaskNotifcationMessage.additional,
           type: "additional",
