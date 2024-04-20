@@ -57,12 +57,12 @@ router.post(
 );
 router.patch(
   "/accept-request/:id",
-  auth(USER_ROLE.EMPLOYEE),
+  auth(USER_ROLE.HOMEOWNER),
   userGroceryListControllers.acceptBuyRequest
 );
 router.patch(
   "/decline-request/:id",
-  auth(USER_ROLE.EMPLOYEE),
+  auth(USER_ROLE.HOMEOWNER),
   userGroceryListControllers.DeclineRequest
 );
 const userGroceryListsRoutes = router;

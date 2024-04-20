@@ -259,12 +259,17 @@ const AcceptBuyRequest = async (id) => {
       { new: true, session }
     );
 
-    await notificationServices.insertNotificationIntoDB({
-      receiver: payload.employee,
-      message: TaskNotifcationMessage.acceptBuyRequest,
-      refference: result[0]?._id,
-      type: "additional",
-    });
+    await notificationServices.insertNotificationIntoDB(
+      [
+        {
+          receiver: result.employee,
+          message: TaskNotifcationMessage.acceptBuyRequest,
+          refference: result?._id,
+          type: "additional",
+        },
+      ],
+      session
+    );
     await session.commitTransaction();
     await session.endSession();
     return result;
@@ -278,22 +283,19 @@ const declineBuyRequest = async (id) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const result = await UserGroceryList.findByIdAndUpdate(
-      id,
-      {
-        $set: {
-          buyRequest: "declined",
-        },
-      },
-      { new: true, session }
-    );
+    const result = await UserGroceryList.findByIdAndDelete(id, { session });
 
-    await notificationServices.insertNotificationIntoDB({
-      receiver: payload.employee,
-      message: TaskNotifcationMessage.declined,
-      refference: result[0]?._id,
-      type: "additional",
-    });
+    await notificationServices.insertNotificationIntoDB(
+      [
+        {
+          receiver: result.employee,
+          message: TaskNotifcationMessage.decline,
+          refference: result?._id,
+          type: "additional",
+        },
+      ],
+      session
+    );
     await session.commitTransaction();
     await session.endSession();
     return result;

@@ -7,4 +7,5 @@ export const TaskNotifcationMessage = {
   completed: "Task Completed",
   additional: "You have a new additional task assigned.",
   approved: "your reschedule request is approved",
+  decline: "your request is declined",
 };

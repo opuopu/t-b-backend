@@ -9,7 +9,7 @@ const insertScheduleIntoDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task added successfully",
+    message: "Schedule Added successfully",
     data: result,
   });
 });

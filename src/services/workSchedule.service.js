@@ -75,6 +75,7 @@ const getAllWorkSchedule = async (query) => {
 };
 
 const getAllWorkScheduleByRoom = async (query) => {
+  console.log(query);
   const workScheduleModel = new QueryBuilder(
     WorkSchedule.find().populate({
       path: "schedule",
@@ -83,7 +84,12 @@ const getAllWorkScheduleByRoom = async (query) => {
       },
     }),
     query
-  );
+  )
+    .search()
+    .filter()
+    .paginate()
+    .sort()
+    .fields();
   const result = await workScheduleModel.modelQuery;
   const meta = await workScheduleModel.meta();
   return {

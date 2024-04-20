@@ -5,39 +5,58 @@ import AppError from "../errors/AppError.js";
 import httpStatus from "http-status";
 import { findArrayIntersection } from "../utils/schedule.utils.js";
 import Employee from "../models/employee.model.js";
-const insertScheduleIntoDb = async (payload) => {
-  const findSchedule = await AssignSchedule.findOne({
-    employee: payload?.employee,
-    workingDays: {
-      $in: payload?.workingDays,
-    },
-  });
-  const dateConflict = findArrayIntersection(
-    payload?.workingDays,
-    payload?.weekend
-  );
+// const insertScheduleIntoDb = async (payload) => {
+//   const findSchedule = await AssignSchedule.findOne({
+//     employee: payload?.employee,
+//     workingDays: {
+//       $in: payload?.workingDays,
+//     },
+//   });
+//   const dateConflict = findArrayIntersection(
+//     payload?.workingDays,
+//     payload?.weekend
+//   );
 
-  if (dateConflict.length < 0) {
+//   if (dateConflict.length < 0) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "you cannot assign the same date to both working days and weekends"
+//     );
+//   }
+//   if (findSchedule) {
+//     throw new AppError(
+//       httpStatus.BAD_REQUEST,
+//       "day conflict. employee has already assigned during this days"
+//     );
+//   }
+//   const result = await AssignSchedule.create(payload);
+//   return result;
+// };
+const insertScheduleIntoDb = async (payload) => {
+  const findEmployee = await Employee.findById(payload?.employee);
+  if (!findEmployee) {
     throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "you cannot assign the same date to both working days and weekends"
+      httpStatus.NOT_FOUND,
+      "Employee Not Found.Please Select Valid Employee"
     );
   }
-  if (findSchedule) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "day conflict. employee has already assigned during this days"
-    );
-  }
-  const result = await AssignSchedule.create(payload);
+  const result = await AssignSchedule.findOneAndUpdate(
+    {
+      employee: payload.employee,
+    },
+    {
+      $set: payload,
+    },
+    { new: true, upsert: true }
+  );
   return result;
 };
 const getAllAssignSchedule = async (query) => {
-  const result = await AssignSchedule.find(query);
+  const result = await AssignSchedule.find(query).populate("employee");
   return result;
 };
 const getAssignedSchedule = async (id) => {
-  const result = await AssignSchedule.findById(id);
+  const result = await AssignSchedule.findById(id).populate("employee");
   return result;
 };
 const updateAssignSchedule = async (id, payload) => {
