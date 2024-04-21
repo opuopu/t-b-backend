@@ -19,9 +19,16 @@ const auth = (...userRoles) => {
     }
 
     const { role, email } = decode;
-    const isUserExist = User.isUserExist(email);
+    const isUserExist = await User.isUserExist(email);
+
     if (!isUserExist) {
       throw new AppError(httpStatus.NOT_FOUND, "user not found");
+    }
+    if (Date.now() > isUserExist.trialExpirationDate) {
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        "your trial is already expired"
+      );
     }
     if (userRoles && !userRoles.includes(role)) {
       throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized ");
