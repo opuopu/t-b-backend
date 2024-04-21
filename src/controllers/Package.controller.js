@@ -3,7 +3,7 @@ import packageServices from "../services/Package.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 const createPackageIntoDB = catchAsync(async (req, res) => {
-  const result = await packageServices.createPackageIntoDB(req.body);
+  const result = await packageServices.insertPackageIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -22,8 +22,18 @@ const BuySubscription = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMyPlan = catchAsync(async (req, res) => {
+  const result = await subscriptionServices.getMyPlan(req?.user?.userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Your Plan retrived successfully",
+    data: result,
+  });
+});
 const subscriptionControllers = {
   createPaymentIntent,
   BuySubscription,
+  getMyPlan,
 };
 export default subscriptionControllers;

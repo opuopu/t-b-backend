@@ -15,6 +15,7 @@ const createHome = catchAsync(async (req, res, next) => {
   });
 });
 const getAllHomes = catchAsync(async (req, res, next) => {
+  req.query.user = req?.user?.userId;
   const result = await homeServices.getAllHomes(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,

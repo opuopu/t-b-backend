@@ -108,6 +108,18 @@ const getScheduleDataByEmployee = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAssignScheduleByEmployeeId = catchAsync(async (req, res) => {
+  console.log(req.body);
+  const result = await AssignScheduleServices.getAssignScheduleByEmployeeId(
+    req?.params?.employeeId
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "employee schedule data retrived successfully",
+    data: result,
+  });
+});
 const AssignScheduleControllers = {
   insertScheduleIntoDb,
   getAssignedScheduleById,
@@ -119,5 +131,6 @@ const AssignScheduleControllers = {
   getFridayData,
   employeeWorkDetailsByScheduleId,
   getScheduleDataByEmployee,
+  getAssignScheduleByEmployeeId,
 };
 export default AssignScheduleControllers;

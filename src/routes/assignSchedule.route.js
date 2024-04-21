@@ -4,10 +4,16 @@ import { USER_ROLE } from "../constant/user.role.js";
 import AssignScheduleControllers from "../controllers/assignScheudle.controller.js";
 
 const router = express.Router();
+
 router.get(
   "/sunday-thursday",
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
   AssignScheduleControllers.getDataFromSundayToThursday
+);
+router.get(
+  "/employee/:employeeId",
+  auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
+  AssignScheduleControllers.getAssignScheduleByEmployeeId
 );
 router.get(
   "/weekend",

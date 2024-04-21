@@ -10,6 +10,10 @@ const PackageSchema = new Schema(
       type: Number,
       required: [true, "package price is required"],
     },
+    currency: {
+      type: String,
+      required: [true, "currency is required"],
+    },
     duration: {
       type: String,
       enum: ["yearly", "monthly"],

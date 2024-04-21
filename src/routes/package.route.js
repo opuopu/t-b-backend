@@ -5,11 +5,11 @@ import { USER_ROLE } from "../constant/user.role.js";
 
 const router = express.Router();
 
-router.post("/", auth(USER_ROLE.ADMIN), packageControllers.createPackageIntoDB);
+router.post("/", packageControllers.createPackageIntoDB);
 router.get(
   "/",
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
-  packageControllers.createPackageIntoDB
+  packageControllers.getAllPackages
 );
 router.post(
   "/:id",

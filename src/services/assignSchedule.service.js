@@ -315,6 +315,12 @@ const getScheduleDataByEmployee = async (id) => {
   return result;
 };
 
+// get assignedschedule by employee id
+
+const getAssignScheduleByEmployeeId = async (id) => {
+  const result = await AssignSchedule.findOne({ employee: id });
+  return result;
+};
 const AssignScheduleServices = {
   insertScheduleIntoDb,
   getAllAssignSchedule,
@@ -326,5 +332,6 @@ const AssignScheduleServices = {
   getFridayData,
   getScheduleDataByEmployee,
   employeeWorkDetailsByScheduleId,
+  getAssignScheduleByEmployeeId,
 };
 export default AssignScheduleServices;

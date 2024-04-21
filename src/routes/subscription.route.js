@@ -18,6 +18,11 @@ router.post(
   auth(USER_ROLE.HOMEOWNER),
   subscriptionControllers.createPaymentIntent
 );
+router.get(
+  "/my-plan",
+  auth(USER_ROLE.HOMEOWNER),
+  subscriptionControllers.getMyPlan
+);
 
 const SubscriptionRoutes = router;
 export default SubscriptionRoutes;

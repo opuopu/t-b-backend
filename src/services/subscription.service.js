@@ -24,7 +24,6 @@ const createPaymentIntent = async (payload) => {
 
 const BuySubscription = async (payload) => {
   const findPackage = await Packages.findById(payload?.package);
-
   const findUserSubscription = await Subscription.findOne({
     user: payload?.user,
   });
@@ -39,7 +38,6 @@ const BuySubscription = async (payload) => {
   } else if (findPackage?.duration === "yearly") {
     endDate = nextYear(date);
   }
-
   const formatedData = {
     ...payload,
     startDate: date,
@@ -84,9 +82,14 @@ const BuySubscription = async (payload) => {
   }
 };
 
+const getMyPlan = async (id) => {
+  const result = await Subscription.findOne({ user: id }).populate("package");
+  return result;
+};
 const subscriptionServices = {
   createPaymentIntent,
   BuySubscription,
+  getMyPlan,
 };
 
 export default subscriptionServices;
