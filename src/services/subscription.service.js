@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import config from "../config/index.js";
 import { calculateAmount } from "../utils/subscription.utils.js";
-
+import jwt from "jsonwebtoken";
 import AppError from "../errors/AppError.js";
 import httpStatus from "http-status";
 import { nextMonth, nextYear } from "../utils/schedule.utils.js";
@@ -22,17 +22,21 @@ const createPaymentIntent = async (payload) => {
   return paymentIntent?.client_secret;
 };
 
-const BuySubscription = async (token, payload) => {
+const BuySubscription = async (payload, token) => {
   if (!token) {
     throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized!");
   }
+  console.log(token);
   let decode;
   try {
-    decode = jwt.verify(token, config.jwt_access_secret);
+    decode = jwt.verify(token, "tidybayti2023");
   } catch (err) {
+    console.log(err);
     throw new AppError(httpStatus.UNAUTHORIZED, "unauthorized");
   }
+
   const { userId } = decode;
+  console.log(decode);
 
   const user = await User.findById(userId);
   if (!user) {
