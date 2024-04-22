@@ -34,19 +34,12 @@ const BuySubscription = async (payload, token) => {
     console.log(err);
     throw new AppError(httpStatus.UNAUTHORIZED, "unauthorized");
   }
-
   const { userId } = decode;
-  console.log(decode);
-
   const user = await User.findById(userId);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "user not found");
   }
   const findPackage = await Packages.findById(payload?.package);
-  const findUserSubscription = await Subscription.findOne({
-    user: payload?.user,
-  });
-
   if (!findPackage) {
     throw new AppError(httpStatus.BAD_REQUEST, "package not found");
   }
@@ -66,16 +59,16 @@ const BuySubscription = async (payload, token) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const result = await Subscription.findByIdAndUpdate(
-      findUserSubscription?._id,
+    const result = await Subscription.findOneAndUpdate(
+      { user: userId },
       formatedData,
-      { upsert: true, session }
+      { upsert: true, new: true, session }
     );
-    if (!result[0]) {
+    if (!result) {
       throw new AppError(httpStatus.BAD_REQUEST, "failed to buy subscriptions");
     }
     await User.findByIdAndUpdate(
-      payload?.user,
+      userId,
       {
         $set: {
           trialExpirationDate: endDate,
@@ -88,6 +81,7 @@ const BuySubscription = async (payload, token) => {
     await session.endSession();
     return result;
   } catch (err) {
+    console.log(err);
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
