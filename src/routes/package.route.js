@@ -8,13 +8,13 @@ const router = express.Router();
 router.post("/", packageControllers.createPackageIntoDB);
 router.get(
   "/",
-  auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
+  // auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
   packageControllers.getAllPackages
 );
 router.post(
   "/:id",
-  auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
-  packageControllers.createPackageIntoDB
+  // auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
+  packageControllers.getSinglePackage
 );
 const packagteRoutes = router;
 export default packagteRoutes;

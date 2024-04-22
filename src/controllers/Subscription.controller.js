@@ -13,8 +13,8 @@ const createPaymentIntent = catchAsync(async (req, res) => {
   });
 });
 const BuySubscription = catchAsync(async (req, res) => {
-  req.body.user = req?.user?.userId;
-  const result = await subscriptionServices.BuySubscription(req.body);
+  const token = req?.headers?.authorization?.split(" ")[1];
+  const result = await subscriptionServices.BuySubscription(token, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

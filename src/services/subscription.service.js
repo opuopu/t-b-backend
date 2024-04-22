@@ -22,7 +22,22 @@ const createPaymentIntent = async (payload) => {
   return paymentIntent?.client_secret;
 };
 
-const BuySubscription = async (payload) => {
+const BuySubscription = async (token, payload) => {
+  if (!token) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "you are not authorized!");
+  }
+  let decode;
+  try {
+    decode = jwt.verify(token, config.jwt_access_secret);
+  } catch (err) {
+    throw new AppError(httpStatus.UNAUTHORIZED, "unauthorized");
+  }
+  const { userId } = decode;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "user not found");
+  }
   const findPackage = await Packages.findById(payload?.package);
   const findUserSubscription = await Subscription.findOne({
     user: payload?.user,
@@ -47,19 +62,12 @@ const BuySubscription = async (payload) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    if (findUserSubscription) {
-      await Subscription.findByIdAndUpdate(
-        findUserSubscription?._id,
-        {
-          $set: {
-            status: false,
-          },
-        },
-        { session }
-      );
-    }
-    const result = await Subscription.create([formatedData], { session });
-    if (!result) {
+    const result = await Subscription.findByIdAndUpdate(
+      findUserSubscription?._id,
+      formatedData,
+      { upsert: true, session }
+    );
+    if (!result[0]) {
       throw new AppError(httpStatus.BAD_REQUEST, "failed to buy subscriptions");
     }
     await User.findByIdAndUpdate(
@@ -67,7 +75,7 @@ const BuySubscription = async (payload) => {
       {
         $set: {
           trialExpirationDate: endDate,
-          trial: "premium",
+          trial: findPackage?.trial,
         },
       },
       { session }

@@ -9,7 +9,7 @@ const router = express.Router();
 router.post(
   "/",
   validateRequest(paymentValidation.subscriptionSchema),
-  auth(USER_ROLE.HOMEOWNER),
+  // auth(USER_ROLE.HOMEOWNER),
   subscriptionControllers.BuySubscription
 );
 router.post(

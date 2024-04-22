@@ -80,6 +80,7 @@ userSchema.pre("save", async function (next) {
 
   next();
 });
+
 userSchema.statics.isUserExist = async function (email) {
   return await User.findOne({ email: email }).select("+password");
 };

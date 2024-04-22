@@ -12,6 +12,7 @@ import { generateNewEmployeeId } from "../utils/employee.utils.js";
 import HomeOwner from "../models/homeOwner.model.js";
 import sendEmail from "../utils/sendEmail.js";
 import Employee from "../models/employee.model.js";
+import { dateCompare } from "../utils/date.utils.js";
 // create homeOwner
 const signupHomeOwnerIntoDB = async (payload) => {
   const { email } = payload;
@@ -132,7 +133,11 @@ const SigninHomeOwner = async (payload) => {
   );
 
   return {
-    user: { ...others, homes: findHomeOwner?.homes },
+    user: {
+      ...others,
+      homes: findHomeOwner?.homes,
+      trialStatus: dateCompare(new Date(), user?.trialExpirationDate),
+    },
     accessToken,
     refreshToken,
   };
