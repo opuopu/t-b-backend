@@ -22,12 +22,17 @@ const signupHomeOwnerIntoDB = async (payload) => {
       "Please provide valid information."
     );
   }
-  console.log(payload);
   const user = await User.isUserExist(email);
   if (user) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
       "User already exist with the same email."
+    );
+  }
+  if (payload?.password !== payload.confirmPassword) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Password and Confirm password did not match"
     );
   }
   await otpServices.createAnOtpIntoDB({
