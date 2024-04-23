@@ -12,7 +12,7 @@ const insertUserTaskIntoDB = async (payload) => {
   const { schedule } = payload;
   const findSchedule = await AssignSchedule.findById(schedule);
   if (!findSchedule) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Schedule Not Found");
+    throw new AppError(httpStatus.BAD_REQUEST, "Schedule  not Found");
   }
   const oldSchedule = await WorkSchedule.find({
     schedule,
@@ -38,7 +38,7 @@ const insertBreakTimeIntoDb = async (payload) => {
 
   const findSchedule = await AssignSchedule.findById(schedule);
   if (!findSchedule) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Schedule Not Found");
+    throw new AppError(httpStatus.BAD_REQUEST, "Schedule not Found");
   }
   const oldSchedule = await WorkSchedule.find({
     schedule,
@@ -67,7 +67,7 @@ const getAllWorkSchedule = async (query) => {
   if (!query?.schedule) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      "please provide schedule information "
+      "Please provide schedule information"
     );
   }
   const result = await WorkSchedule.find(query);
@@ -133,7 +133,7 @@ const updateSchedule = async (id, payload) => {
     if (hasTimeConflict(findAllSchedules, { startTime, endTime })) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "time conflict! Employee is already scheduled during this days and time."
+        "Time conflict! Employee is already scheduled during this days and time."
       );
     }
   }

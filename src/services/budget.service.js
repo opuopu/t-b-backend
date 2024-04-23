@@ -16,7 +16,7 @@ const insertBudgetIntoDB = async (payload) => {
   if (isExistBudget) {
     throw new AppError(
       httpStatus.CONFLICT,
-      "Budget Already Exist With This Category in this month"
+      "Budget already exist With this Category in this month"
     );
   }
   const result = await Budget.create(payload);
@@ -58,14 +58,14 @@ const deleteBudget = async (id) => {
     session.startTransaction();
     const result = await Budget.findByIdAndDelete(id, { session });
     if (!result) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to delete budget");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete budget");
     }
     const deleteExpenses = await Expense.deleteMany(
       { budget: id },
       { session }
     );
     if (!deleteExpenses.acknowledged) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to delete expenses");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete expenses");
     }
     await session.commitTransaction();
     await session.endSession();

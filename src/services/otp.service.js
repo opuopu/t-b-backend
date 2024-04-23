@@ -31,7 +31,7 @@ const createAnOtpIntoDB = async ({ email, type }) => {
     if (!result) {
       throw new AppError(
         httpStatus.UNPROCESSABLE_ENTITY,
-        "something went wrong. otp not generated!.please try again!"
+        "Something went wrong. Otp not generated!.Please try again!"
       );
     }
   } catch (err) {}
@@ -62,7 +62,7 @@ const veriFySignupOtp = async (payload) => {
   if (!isExistOtp) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      "otp information not found. please resend it!"
+      "Otp  not found. Please resend it!"
     );
   }
   const { expiresAt } = isExistOtp;
@@ -72,7 +72,7 @@ const veriFySignupOtp = async (payload) => {
     await Otp.deleteOne({ email: payload?.email, expiresAt: expiresAt });
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "otp has expired. please resend it"
+      "Otp has expired. please resend it"
     );
   }
   // check is otp matched
@@ -98,7 +98,7 @@ const veriFySignupOtp = async (payload) => {
     };
     const createUser = await User.create([authObj], { session });
     if (!createUser[0]) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to create user");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
     const homeOwnerObject = {
       name: payload?.name,
@@ -111,7 +111,7 @@ const veriFySignupOtp = async (payload) => {
       session,
     });
     if (!createHomeOwner[0]) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to create user");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
     result = await Otp.findByIdAndDelete(isExistOtp?._id, { session });
     const jwtPayload = {
@@ -175,7 +175,7 @@ const verifyForgetPasswordOtp = async (payload) => {
     });
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "otp has expired. please resend it"
+      "Otp has expired. please resend it"
     );
   }
   // check is otp matched
@@ -183,7 +183,7 @@ const verifyForgetPasswordOtp = async (payload) => {
   if (!isOtpMatched)
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "otp did not match.plese try again"
+      "Otp did not match.plese try again"
     );
 
   const updateOtp = await Otp.findByIdAndUpdate(
@@ -196,7 +196,7 @@ const verifyForgetPasswordOtp = async (payload) => {
     { new: true }
   );
   if (!updateOtp) {
-    throw new AppError(httpStatus.BAD_REQUEST, "something went wrong");
+    throw new AppError(httpStatus.BAD_REQUEST, "Something went wrong");
   }
   return updateOtp;
 };

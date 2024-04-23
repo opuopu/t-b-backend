@@ -65,7 +65,7 @@ const BuySubscription = async (payload, token) => {
       { upsert: true, new: true, session }
     );
     if (!result) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to buy subscriptions");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to buy subscriptions");
     }
     await User.findByIdAndUpdate(
       userId,

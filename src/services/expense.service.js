@@ -94,7 +94,7 @@ const deleteExpense = async (id) => {
     session.startTransaction();
     const deleteExpense = await Expense.findByIdAndDelete(id, { session });
     if (!deleteExpense) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to delete expense");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete expense");
     }
     const findBudget = await Budget.findById(deleteExpense?.budget);
     const updatedBudget = await Budget.findByIdAndUpdate(
@@ -109,7 +109,7 @@ const deleteExpense = async (id) => {
       { new: true, session }
     );
     if (!updatedBudget) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to update expense");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to update expense");
     }
     session.commitTransaction();
     session.endSession();

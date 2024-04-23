@@ -22,7 +22,7 @@ const auth = (...userRoles) => {
     const isUserExist = await User.isUserExist(email);
 
     if (!isUserExist) {
-      throw new AppError(httpStatus.NOT_FOUND, "user not found");
+      throw new AppError(httpStatus.NOT_FOUND, "User not found");
     }
     if (Date.now() > isUserExist.trialExpirationDate) {
       throw new AppError(

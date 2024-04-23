@@ -17,14 +17,17 @@ import { dateCompare } from "../utils/date.utils.js";
 const signupHomeOwnerIntoDB = async (payload) => {
   const { email } = payload;
   if (!email) {
-    throw new AppError(httpStatus.BAD_REQUEST, "please provide information");
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Please provide valid information."
+    );
   }
   console.log(payload);
   const user = await User.isUserExist(email);
   if (user) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "user already exist with the same email!"
+      "User already exist with the same email."
     );
   }
   await otpServices.createAnOtpIntoDB({
@@ -51,7 +54,7 @@ const signupEmployeeIntoDb = async (payload) => {
   if (user) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "Employee already exist with the same email!"
+      "User already exist with the same email!"
     );
   }
   const session = await mongoose.startSession();
@@ -60,7 +63,7 @@ const signupEmployeeIntoDb = async (payload) => {
     session.startTransaction();
     result = await User.create([authObj], { session });
     if (!result[0]) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Somethign Went Wrong");
+      throw new AppError(httpStatus.BAD_REQUEST, "Somethign went wrong");
     }
     const userId = result[0]?._id;
 
@@ -75,7 +78,7 @@ const signupEmployeeIntoDb = async (payload) => {
       { session }
     );
     if (!insertEmployeeDetails) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Somethign Went Wrong");
+      throw new AppError(httpStatus.BAD_REQUEST, "Somethign went wrong");
     }
     await session.commitTransaction();
     await session.endSession();
@@ -91,7 +94,7 @@ const SigninHomeOwner = async (payload) => {
   const { email, password } = payload;
   const user = await User.isUserExist(email);
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "user not exist with this email!");
+    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email!");
   }
   if (user?.role !== "homeowner") {
     throw new AppError(httpStatus.NOT_FOUND, "you are not authorized!");
@@ -102,7 +105,7 @@ const SigninHomeOwner = async (payload) => {
     hasedPassword
   );
   if (!isPasswordMatched) {
-    throw new AppError(httpStatus.BAD_REQUEST, "password do not match!");
+    throw new AppError(httpStatus.BAD_REQUEST, "Passwords did not match!");
   }
 
   const findHomeOwner = await HomeOwner.findOne({ user: user?._id });

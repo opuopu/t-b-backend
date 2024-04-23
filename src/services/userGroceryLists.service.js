@@ -13,7 +13,7 @@ const insertUserGroceryListsIntoDB = async (payload) => {
     session.startTransaction();
     const result = await UserGroceryList.create(payload);
     if (!result) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to assign task");
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to assign task");
     }
 
     await notificationServices.insertNotificationIntoDB(
@@ -139,7 +139,7 @@ const markAsBusy = async (id, payload) => {
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "failed to update. please try again"
+        "Failed to update. please try again"
       );
     }
 
@@ -185,7 +185,7 @@ const markAsComplete = async (id, payload) => {
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "failed to update. please try again"
+        "Failed to update. please try again"
       );
     }
 

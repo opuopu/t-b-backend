@@ -30,7 +30,7 @@ const getSingleEmployee = async (id) => {
 const updateEmployee = async (id, payload) => {
   const { password, homeOwner } = payload;
   if (password || homeOwner) {
-    throw new AppError(httpStatus.BAD_REQUEST, "something went wrong");
+    throw new AppError(httpStatus.BAD_REQUEST, "Something went wrong");
   }
   const result = await Employee.findByIdAndUpdate(id, payload, { new: true });
   return result;

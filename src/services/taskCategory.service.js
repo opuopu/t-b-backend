@@ -1,4 +1,5 @@
-import TaskCategory from "../models/taskCategory.model.js";
+import TaskCategory from "../models/TaskCategory.model.js";
+
 const insertTaskCategoryIntoDB = async (payload) => {
   const result = await TaskCategory.create(payload);
   return result;

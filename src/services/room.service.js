@@ -34,7 +34,7 @@ const inserRoomIntoDB = async (payload) => {
     if (!updateHomeOwner) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "failed to add home. plase try again"
+        "Failed to add home. plase try again"
       );
     }
     const rooms = payload.rooms.map((room) => ({

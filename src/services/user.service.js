@@ -49,13 +49,13 @@ const updateMyProfile = async (usermail, userId, role, payload) => {
   if (usermail !== email && isExistUser) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "user already exists with this email."
+      "User already exists with this email."
     );
   }
   if (password || clientRole) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "something went wrong. please try again later"
+      "Something went wrong. please try again later"
     );
   }
   let findFilePath;

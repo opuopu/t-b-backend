@@ -37,7 +37,7 @@ const insertScheduleIntoDb = async (payload) => {
   if (!findEmployee) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      "Employee Not Found.Please Select Valid Employee"
+      "Employee Not Found.Please select valid employee"
     );
   }
   const result = await AssignSchedule.findOneAndUpdate(
@@ -70,7 +70,7 @@ const updateAssignSchedule = async (id, payload) => {
   if (findSchedule?.length > 0) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "day conflict. employee has already assigned during this days"
+      "Day conflict: Employee already has assigned during these days."
     );
   }
   const result = await AssignSchedule.findByIdAndUpdate(id, payload);

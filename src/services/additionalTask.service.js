@@ -29,7 +29,10 @@ const insertAdditionalTaskIntoDb = async (payload) => {
       status: status,
     });
     if (!result) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to assign task");
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Failed to assign task.please try again!"
+      );
     }
 
     const messageObj = {
@@ -99,7 +102,7 @@ const markAsBusy = async (id, payload) => {
   ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "please select your preferableDate date before next nextOccurrence date"
+      "Please select a preferable date before the next occurrence date."
     );
   }
   try {
@@ -150,7 +153,7 @@ const markAsComplete = async (id, payload) => {
   const session = await mongoose.startSession();
   const findTask = await AdditionalTask.findById(id);
   if (findTask?.status === "busy") {
-    throw new AppError(httpStatus.BAD_REQUEST, "this task under in busy");
+    throw new AppError(httpStatus.BAD_REQUEST, "This task is currently busy.");
   }
   if (findTask?.recurrence === "weekly") {
     payload.workingDate = findTask.nextOccurrence;
@@ -232,7 +235,7 @@ const AprooveReschedule = async (id) => {
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "failed to approve. Please try again"
+        "Approval failed. Please try again."
       );
     }
 
@@ -305,7 +308,10 @@ const UpdateAdditionalTask = async (id, payload) => {
       session,
     });
     if (!result) {
-      throw new AppError(httpStatus.BAD_REQUEST, "failed to assign task");
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        "Failed to assign task.please try again!"
+      );
     }
 
     await notificationServices.insertNotificationIntoDB(
