@@ -1,40 +1,40 @@
 import httpStatus from "http-status";
-import userServices from "../services/user.service.js";
+import UserServices from "../services/User.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 import { createFileDetails } from "../utils/file.utils.js";
 
 const getme = catchAsync(async (req, res) => {
-  const { userId, role } = req.user;
-  const result = await userServices.getme(userId, role);
+  const { UserId, role } = req.User;
+  const result = await UserServices.getme(UserId, role);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "user profile retrived successfully",
+    message: "User profile retrieved  successfully",
     data: result,
   });
 });
 const updateMyProfile = catchAsync(async (req, res) => {
-  const { userId, role, email } = req.user;
+  const { UserId, role, email } = req.User;
   if (req?.file) {
     req.body.image = createFileDetails("profile", req?.file?.filename);
   }
-  const result = await userServices.updateMyProfile(
+  const result = await UserServices.updateMyProfile(
     email,
-    userId,
+    UserId,
     role,
     req.body
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "user profile updated successfully",
+    message: "User profile updated successfully",
     data: result,
   });
 });
 
-const userControllers = {
+const UserControllers = {
   getme,
   updateMyProfile,
 };
-export default userControllers;
+export default UserControllers;

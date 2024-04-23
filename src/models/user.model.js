@@ -9,11 +9,13 @@ const userSchema = new Schema(
       // required: [true, "phone number is required"],
       // unique: true,
       default: "",
+      trim: true,
     },
     email: {
       type: String,
       required: [true, "email is required"],
       unique: true,
+      trim: true,
     },
     id: {
       type: String,
@@ -24,6 +26,7 @@ const userSchema = new Schema(
       type: String,
       select: 0,
       required: [true, "password is required"],
+      trim: true,
     },
     passwordChangedAt: {
       type: Date,

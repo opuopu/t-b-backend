@@ -20,7 +20,7 @@ const getAllHomes = catchAsync(async (req, res, next) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "homes are retrieved successfully.",
+    message: "Homes retrieved successfully.",
     data: result?.result,
     meta: result?.meta,
   });
@@ -31,7 +31,7 @@ const getSingleHome = catchAsync(async (req, res, next) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "home retrieved successfully",
+    message: "Home retrieved successfully",
     data: result,
   });
 });
@@ -40,7 +40,7 @@ const updateHome = catchAsync(async (req, res, next) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "home is updated successfully",
+    message: "Home updated successfully",
     data: result,
   });
 });
@@ -49,7 +49,7 @@ const deleteHome = catchAsync(async (req, res, next) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "home is deleted successfully",
+    message: "Home deleted successfully",
     data: result,
   });
 });

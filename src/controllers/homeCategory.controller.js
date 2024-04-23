@@ -8,7 +8,7 @@ const createHomeCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "home category created successfully",
+    message: "Home category created successfully",
     data: result,
   });
 });

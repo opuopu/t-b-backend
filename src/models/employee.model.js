@@ -40,7 +40,7 @@ const employeeSchema = new Schema(
     },
     passport: {
       passportNumber: {
-        type: Number,
+        type: String,
       },
       expireDate: {
         type: Date,

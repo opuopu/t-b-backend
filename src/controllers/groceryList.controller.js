@@ -18,7 +18,7 @@ const getGroceryListsByCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Grocery items retrived successfully",
+    message: "Grocery items retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -28,7 +28,7 @@ const getSingleGroceryList = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Grocery item retrived successfully",
+    message: "Grocery item retrieved  successfully",
     data: result,
   });
 });

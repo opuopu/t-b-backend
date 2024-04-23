@@ -10,6 +10,7 @@ const router = express.Router();
 const upload = fileUpload("./public/uploads/profile/");
 router.post(
   "/homeOwner/signup",
+  // (req, res) => console.log(req.body),
   validateRequest(authValidation.signupHomeOwnerSchema),
   authControllers.signupHomeOwnerIntoDB
 );

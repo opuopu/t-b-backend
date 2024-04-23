@@ -27,7 +27,7 @@ const getAllRecipesByQuery = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipes retrived successfully",
+    message: "Recipes retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -39,7 +39,7 @@ const getAllUsersRecipesByQuery = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipes retrived successfully",
+    message: "Recipes retrieved successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -50,7 +50,7 @@ const getSingleRecipe = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipe retrived successfully",
+    message: "Recipe retrieved successfully",
     data: result,
   });
 });
@@ -64,7 +64,7 @@ const updateRecipe = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipe updated successfully",
+    message: "Recipe updated successfully",
     data: result,
   });
 });
@@ -74,7 +74,7 @@ const deleteRecipe = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipe deleted successfully",
+    message: "Recipe deleted successfully",
     data: result,
   });
 });
@@ -98,7 +98,7 @@ const getMyFavouriteRecipe = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "FavouriteRecipes Retrived successfully",
+    message: "FavouriteRecipes retrieved  successfully",
     data: result,
   });
 });

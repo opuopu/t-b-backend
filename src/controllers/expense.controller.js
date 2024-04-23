@@ -19,7 +19,7 @@ const getBudgetWiseExpenses = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Expenses Retrived Successfully",
+    message: "Expenses retrieved  successfully",
     data: result,
   });
 });

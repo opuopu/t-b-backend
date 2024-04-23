@@ -11,7 +11,7 @@ const signupHomeOwnerIntoDB = catchAsync(async (req, res, next) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "please verify your otp now",
+    message: "An email sent to your email.",
     data: result ?? null,
   });
 });
@@ -37,7 +37,7 @@ const SigninHomeOwner = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "user Sign In successfully",
+    message: "User signed in  successfully",
     data: result,
   });
 });
@@ -46,7 +46,7 @@ const SigninEmployee = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "user Sign In successfully",
+    message: "User signed in  successfully",
     data: result,
   });
 });
@@ -66,7 +66,7 @@ const forgotPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Password Updated succesfully",
+    message: "Password updated succesfully",
     data: result,
   });
 });
@@ -77,7 +77,7 @@ const resetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Password Updated succesfully",
+    message: "Password updated succesfully",
     data: result,
   });
 });

@@ -11,7 +11,7 @@ const insertAdditionalTaskIntoDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "additional tasks added successfully",
+    message: "Additional task added successfully",
     data: result,
   });
 });
@@ -22,7 +22,7 @@ const getAllAdditionalTaskByHomeOwner = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "additional tasks retrived successfully",
+    message: "Additional tasks retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -36,7 +36,7 @@ const getAllAdditionalTaskByEmployee = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "additional tasks retrived successfully",
+    message: "Additional tasks retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -60,7 +60,7 @@ const markAsBusy = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "additional tasks marked as busy successfully",
+    message: "Additional tasks marked as busy successfully.",
     data: result,
   });
 });
@@ -72,7 +72,7 @@ const markAsComplete = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "additional tasks marked as completed successfully",
+    message: "Additional tasks marked as completed successfully.",
     data: result,
   });
 });
@@ -81,7 +81,7 @@ const AprooveReschedule = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "re schedule request is approved",
+    message: "Re schedule request is approved",
     data: result,
   });
 });
@@ -90,7 +90,7 @@ const reAsignToOthers = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task assigned successfully",
+    message: "Task assigned successfully",
     data: result,
   });
 });
@@ -102,7 +102,7 @@ const UpdateAdditionalTask = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task assigned successfully",
+    message: "Task assigned successfully",
     data: result,
   });
 });

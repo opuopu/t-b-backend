@@ -19,6 +19,7 @@ const signupHomeOwnerIntoDB = async (payload) => {
   if (!email) {
     throw new AppError(httpStatus.BAD_REQUEST, "please provide information");
   }
+  console.log(payload);
   const user = await User.isUserExist(email);
   if (user) {
     throw new AppError(

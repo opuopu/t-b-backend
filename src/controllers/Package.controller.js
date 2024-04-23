@@ -16,7 +16,7 @@ const getAllPackages = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "packages retrived successfully",
+    message: "packages retrieved  successfully",
     data: result,
   });
 });
@@ -25,7 +25,7 @@ const getSinglePackage = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "package retrived successfully",
+    message: "package retrieved  successfully",
     data: result,
   });
 });

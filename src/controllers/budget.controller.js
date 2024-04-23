@@ -14,7 +14,7 @@ const insertBudgetIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget created successfully",
+    message: "Budget added successfully",
     data: result,
   });
 });
@@ -26,7 +26,7 @@ const getbudgetsByQuery = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budgets retrived successfully",
+    message: "Budgets retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -36,7 +36,7 @@ const getsingleBudget = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget retrived successfully",
+    message: "Budget retrieved  successfully",
     data: result,
   });
 });
@@ -51,7 +51,7 @@ const updateBudget = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget updated successfully",
+    message: "Budget updated successfully",
     data: result,
   });
 });
@@ -60,7 +60,7 @@ const deleteBudget = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget deleted successfully",
+    message: "Budget deleted successfully",
     data: result,
   });
 });
@@ -70,7 +70,7 @@ const budgetVsExpense = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Budget Vs Expense Retrived successfully",
+    message: "Budget vs Expense retrieved  successfully",
     data: result,
   });
 });

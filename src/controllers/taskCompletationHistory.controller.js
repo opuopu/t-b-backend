@@ -9,7 +9,7 @@ const getAllHistoryByTaskId = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "history retrived  successfully.",
+    message: "Task completion history retrieved successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -19,7 +19,7 @@ const deleteAllHistory = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "history deleted  successfully.",
+    message: "History deleted successfully",
     data: result,
   });
 });

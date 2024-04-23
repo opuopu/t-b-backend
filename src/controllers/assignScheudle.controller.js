@@ -18,7 +18,7 @@ const getAllSchedules = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "assign schedule retrived successfully",
+    message: "Schedules retrieved  successfully",
     data: result,
   });
 });
@@ -29,7 +29,7 @@ const getAssignedScheduleById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "assign schedule retrived successfully",
+    message: "Schedules retrieved  successfully",
     data: result,
   });
 });
@@ -41,7 +41,7 @@ const updateAssignSchedule = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "assign schedule updated successfully",
+    message: "Schedules updated successfully",
     data: result,
   });
 });
@@ -53,7 +53,7 @@ const getDataFromSundayToThursday = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "data retrived successfully",
+    message: "Schedules data retrieved  successfully",
     data: result,
   });
 });
@@ -64,7 +64,7 @@ const getSaturdayData = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "saturday data retrived successfully",
+    message: "Saturday data retrieved  successfully",
     data: result,
   });
 });
@@ -73,7 +73,7 @@ const getFridayData = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "friday data retrived successfully",
+    message: "Friday data retrieved  successfully",
     data: result,
   });
 });
@@ -82,7 +82,7 @@ const getWeekendData = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "weekend data retrived successfully",
+    message: "Weekend data retrieved  successfully",
     data: result,
   });
 });
@@ -93,7 +93,7 @@ const employeeWorkDetailsByScheduleId = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "employee schedule data retrived successfully",
+    message: "Employee schedule data retrieved  successfully",
     data: result,
   });
 });
@@ -104,7 +104,7 @@ const getScheduleDataByEmployee = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "employee schedule data retrived successfully",
+    message: "Employee schedule data retrieved  successfully",
     data: result,
   });
 });
@@ -116,7 +116,7 @@ const getAssignScheduleByEmployeeId = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "employee schedule data retrived successfully",
+    message: "Employee schedule data retrieved successfully",
     data: result,
   });
 });

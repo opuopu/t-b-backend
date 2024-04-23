@@ -17,7 +17,7 @@ const getAllRoomPresets = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Presets retrived successfully",
+    message: "Presets retrieved  successfully",
     data: result,
   });
 });
@@ -26,7 +26,7 @@ const getsingRoompreset = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Preset retrived successfully",
+    message: "Preset retrieved  successfully",
     data: result,
   });
 });

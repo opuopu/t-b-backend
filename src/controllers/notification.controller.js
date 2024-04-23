@@ -11,7 +11,7 @@ const getUserSpecificNotifications = catchAsync(async (req, res) => {
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
-    message: "notifications retrived successfully",
+    message: "Notifications retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -20,7 +20,7 @@ const deleteNotification = catchAsync(async (req, res) => {
   const result = await notificationServices.deleteNotification(req?.parmas?.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
-    message: "notifications deleted successfully",
+    message: "Notification deleted successfully",
     data: result,
   });
 });

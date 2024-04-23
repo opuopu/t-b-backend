@@ -1,41 +1,41 @@
 import httpStatus from "http-status";
-import TaskCategory from "../models/taskCategory.model.js";
-import taskCategoryServices from "../services/taskCategory.service.js";
+import TaskCategory from "../models/TaskCategory.model.js";
+import TaskCategoryServices from "../services/TaskCategory.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 
 const insertTaskCategoryIntoDB = catchAsync(async (req, res) => {
-  const result = await taskCategoryServices.insertTaskCategoryIntoDB(req.body);
+  const result = await TaskCategoryServices.insertTaskCategoryIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task category created  successfully.",
+    message: "Task category created  successfully.",
     data: result,
   });
 });
 const getAllTaskCategoires = catchAsync(async (req, res) => {
-  const result = await taskCategoryServices.getAllTaskCategoires();
+  const result = await TaskCategoryServices.getAllTaskCategoires();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task categories retrived   successfully.",
+    message: "Task categories retrieved successfully.",
     data: result,
   });
 });
 const getsingleTaskCategory = catchAsync(async (req, res) => {
-  const result = await taskCategoryServices.getsingleTaskCategory(
+  const result = await TaskCategoryServices.getsingleTaskCategory(
     req.params.id
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "task category retrived   successfully.",
+    message: "Task category retrieved successfully.",
     data: result,
   });
 });
-const taskCategoryControllers = {
+const TaskCategoryControllers = {
   insertTaskCategoryIntoDB,
   getAllTaskCategoires,
   getsingleTaskCategory,
 };
-export default taskCategoryControllers;
+export default TaskCategoryControllers;

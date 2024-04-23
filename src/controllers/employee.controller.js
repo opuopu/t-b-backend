@@ -54,7 +54,7 @@ const AdditionalTask = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "data retrived successfully",
+    message: "Tasks retrieved  successfully",
     data: result,
   });
 });
@@ -64,7 +64,7 @@ const GetTotalGroceries = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "data retrived successfully",
+    message: "Groceries retrieved  successfully",
     data: result,
   });
 });
@@ -73,7 +73,7 @@ const sendEmailAndPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "email sent  successfully",
+    message: "An email sent to your successfully",
     data: result,
   });
 });

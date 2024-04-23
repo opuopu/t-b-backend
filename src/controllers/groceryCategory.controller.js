@@ -9,7 +9,7 @@ const insertGroceryCategoryIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Grocery Category created successfully",
+    message: "Grocery category created successfully",
     data: result,
   });
 });
@@ -18,7 +18,7 @@ const getAllGroceryCategories = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Grocery Categories retrived successfully",
+    message: "Grocery categories retrieved  successfully",
     data: result,
   });
 });
@@ -29,7 +29,7 @@ const getSingleGroceryCategory = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Grocery Category retrived successfully",
+    message: "Grocery category retrieved  successfully",
     data: result,
   });
 });

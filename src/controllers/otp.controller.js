@@ -7,7 +7,7 @@ const createAnOtp = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Please Check Your Email",
+    message: "An otp sent to your email.",
     data: result ?? null,
   });
 });
@@ -16,7 +16,7 @@ const veriFySignupOtp = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "OTP verified successfully",
+    message: "Otp verified successfully",
     data: result ? result : null,
   });
 });
@@ -25,7 +25,7 @@ const verifyForgetPasswordOtp = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "OTP verified successfully",
+    message: "Otp verified successfully",
     data: result ? result : null,
   });
 });

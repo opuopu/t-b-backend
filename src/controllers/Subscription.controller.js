@@ -8,7 +8,7 @@ const createPaymentIntent = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "client secret retrived successfully",
+    message: "client secret retrieved  successfully",
     data: result,
   });
 });
@@ -18,7 +18,8 @@ const BuySubscription = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Congratulations. Your Subscription was successfully",
+    message:
+      "Congratulations! You've successfully purchased a subscription plan.",
     data: result,
   });
 });
@@ -27,7 +28,7 @@ const getMyPlan = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Your Plan retrived successfully",
+    message: "Your plan retrieved successfully",
     data: result,
   });
 });

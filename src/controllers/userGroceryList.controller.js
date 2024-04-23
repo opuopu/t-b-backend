@@ -34,7 +34,7 @@ const getgroceryListByEmployee = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery Lists Retrived successfully",
+    message: "grocery Lists retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -48,7 +48,7 @@ const getuserSingleGroceryList = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery List Retrived successfully",
+    message: "grocery List retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -62,7 +62,7 @@ const findGroceryFromGroceryLists = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery Lists Retrived successfully",
+    message: "grocery Lists retrieved  successfully",
     data: result?.result,
     meta: result?.meta,
   });
@@ -80,7 +80,7 @@ const updateUserGroceryList = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery list updated successfully",
+    message: "Grocery list updated successfully",
     data: result,
   });
 });
@@ -91,7 +91,7 @@ const deleteGroceryFromList = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery list deleted  successfully",
+    message: "Grocery list deleted successfully",
     data: result,
   });
 });
@@ -107,7 +107,7 @@ const markAsBusy = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "grocery list marked as busy successfully",
+    message: "The grocery list has been successfully marked as busy.",
     data: result,
   });
 });
@@ -123,12 +123,11 @@ const markAsComplete = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "status changed successfully",
+    message: "Task successfully marked as complete.",
     data: result,
   });
 });
 const sendBuyRequest = catchAsync(async (req, res) => {
-  console.log("hitted");
   const { homeOwnerId, employeeId } = req?.user || {};
   req.body.homeOwner = homeOwnerId;
   req.body.employee = employeeId;
@@ -136,7 +135,7 @@ const sendBuyRequest = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "request sent successfully",
+    message: "Request sent successfully",
     data: result,
   });
 });
@@ -145,7 +144,7 @@ const acceptBuyRequest = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "request approved successfully",
+    message: "Request approved successfully",
     data: result,
   });
 });
@@ -154,7 +153,7 @@ const DeclineRequest = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "request declined successfully",
+    message: "Request declined successfully",
     data: result,
   });
 });

@@ -16,7 +16,7 @@ const insertBudgetCategoryIntoDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Budget Category Created successfully",
+    message: "Budget category created successfully",
     data: result,
   });
 });
@@ -25,7 +25,7 @@ const getallFromDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budgets  retrived successfully",
+    message: "Budgets  retrieved  successfully",
     data: result,
   });
 });
@@ -34,7 +34,7 @@ const getSingleFromDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "budget category  retrived successfully",
+    message: "Budgets category  retrieved  successfully",
     data: result,
   });
 });
