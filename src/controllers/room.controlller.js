@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
-import RoomServices from "../services/Room.service.js";
+import RoomServices from "../services/room.service.js";
 const inserRoomIntoDB = catchAsync(async (req, res) => {
   const { userId, id } = req?.user;
   req.body.user = userId;
