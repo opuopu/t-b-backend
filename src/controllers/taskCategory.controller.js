@@ -1,5 +1,4 @@
 import httpStatus from "http-status";
-import TaskCategory from "../models/TaskCategory.model.js";
 import TaskCategoryServices from "../services/taskCategory.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
