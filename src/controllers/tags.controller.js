@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import Tagservices from "../services/Tags.service.js";
+import Tagservices from "../services/tags.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 

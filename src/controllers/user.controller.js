@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import UserServices from "../services/User.service.js";
+import UserServices from "../services/user.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 import { createFileDetails } from "../utils/file.utils.js";

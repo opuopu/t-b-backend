@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
-import TaskListServices from "../services/TaskList.service.js";
+import TaskListServices from "../services/taskList.service.js";
 
 const insertTaskListIntoDB = catchAsync(async (req, res) => {
   // const { userId } = req?.user;
