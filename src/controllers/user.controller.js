@@ -5,23 +5,24 @@ import sendResponse from "../utils/sendResponse.js";
 import { createFileDetails } from "../utils/file.utils.js";
 
 const getme = catchAsync(async (req, res) => {
-  const { UserId, role } = req.User;
-  const result = await UserServices.getme(UserId, role);
+  const { userId, role } = req.user;
+
+  const result = await UserServices.getme(userId, role);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "User profile retrieved  successfully",
+    message: "User profile retrieved successfully",
     data: result,
   });
 });
 const updateMyProfile = catchAsync(async (req, res) => {
-  const { UserId, role, email } = req.User;
+  const { userId, role, email } = req.user || {};
   if (req?.file) {
     req.body.image = createFileDetails("profile", req?.file?.filename);
   }
   const result = await UserServices.updateMyProfile(
     email,
-    UserId,
+    userId,
     role,
     req.body
   );
