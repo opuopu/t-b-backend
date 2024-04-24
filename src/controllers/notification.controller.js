@@ -24,9 +24,18 @@ const deleteNotification = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const markAsAllRead = catchAsync(async (req, res) => {
+  const result = await notificationServices.markAsAllRead(req?.user?.userId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    message: "Notifications have been marked as read successfully.",
+    data: result,
+  });
+});
 
 const notificationControllers = {
   getUserSpecificNotifications,
   deleteNotification,
+  markAsAllRead,
 };
 export default notificationControllers;

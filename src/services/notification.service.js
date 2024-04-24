@@ -31,10 +31,24 @@ const deleteNotification = async (id) => {
   return result;
 };
 
+const markAsAllRead = async (id) => {
+  const result = await Notification.updateMany(
+    { receiver: id },
+    {
+      $set: {
+        read: true,
+      },
+    },
+    { new: true }
+  );
+  return result;
+};
+
 const notificationServices = {
   insertNotificationIntoDB,
   getUserSpecificNotifications,
   insertNotificationIntoDBv2,
   deleteNotification,
+  markAsAllRead,
 };
 export default notificationServices;

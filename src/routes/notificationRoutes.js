@@ -14,6 +14,11 @@ router.delete(
   auth(USER_ROLE.ADMIN, USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
   notificationControllers.deleteNotification
 );
+router.patch(
+  "/",
+  auth(USER_ROLE.ADMIN, USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
+  notificationControllers.markAsAllRead
+);
 
 const notificationRoutes = router;
 export default notificationRoutes;
