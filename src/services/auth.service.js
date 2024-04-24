@@ -52,7 +52,6 @@ const signupEmployeeIntoDb = async (payload) => {
     needPasswordChange: true,
     role: "employee",
     verified: true,
-
     id: id,
   };
   const user = await User.isUserExist(email);
@@ -85,9 +84,10 @@ const signupEmployeeIntoDb = async (payload) => {
     if (!insertEmployeeDetails) {
       throw new AppError(httpStatus.BAD_REQUEST, "Somethign went wrong");
     }
+
     await session.commitTransaction();
     await session.endSession();
-    return result[0];
+    return insertEmployeeDetails[0];
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
