@@ -282,15 +282,16 @@ const forgotPassword = async ({ email, newPassword, confirmPassword }) => {
 
 const resetPassword = async (id, payload) => {
   const { oldPassword, newPassword } = payload;
-
+  console.log(id, payload);
   const isUserExist = await User.checkUserExistById(id);
+  console.log(isUserExist);
   if (!isUserExist) {
     throw new AppError(httpStatus.BAD_REQUEST, "User Information Not Found");
   }
 
   const isPasswordMatched = await bcrypt.compare(
-    isUserExist?.password,
-    oldPassword
+    oldPassword,
+    isUserExist?.password
   );
   if (!isPasswordMatched) {
     throw new AppError(httpStatus.BAD_REQUEST, "Old password do not match");
