@@ -98,6 +98,7 @@ const signupEmployeeIntoDb = async (payload) => {
 const SigninHomeOwner = async (payload) => {
   const { email, password } = payload;
   const user = await User.isUserExist(email);
+  console.log(user);
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email!");
   }

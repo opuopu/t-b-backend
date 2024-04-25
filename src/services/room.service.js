@@ -37,6 +37,12 @@ const inserRoomIntoDB = async (payload) => {
         "Failed to add home. plase try again"
       );
     }
+    if (payload?.rooms?.length === 0) {
+      throw new AppError(
+        httpStatus.NOT_ACCEPTABLE,
+        "Please create at least one room before proceeding"
+      );
+    }
     const rooms = payload.rooms.map((room) => ({
       home: createHome[0]._id,
       ...room,
