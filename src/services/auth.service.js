@@ -16,12 +16,6 @@ import { dateCompare } from "../utils/date.utils.js";
 // create homeOwner
 const signupHomeOwnerIntoDB = async (payload) => {
   const { email } = payload;
-  if (!email) {
-    throw new AppError(
-      httpStatus.BAD_REQUEST,
-      "Please provide valid information."
-    );
-  }
   const user = await User.isUserExist(email);
   if (user) {
     throw new AppError(
@@ -32,7 +26,7 @@ const signupHomeOwnerIntoDB = async (payload) => {
   if (payload?.password !== payload.confirmPassword) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "Password and Confirm password did not match"
+      "Password and Confirm password do not match."
     );
   }
   await otpServices.createAnOtpIntoDB({
@@ -111,7 +105,7 @@ const SigninHomeOwner = async (payload) => {
     hasedPassword
   );
   if (!isPasswordMatched) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Passwords did not match!");
+    throw new AppError(httpStatus.BAD_REQUEST, "Password do not match.");
   }
 
   const findHomeOwner = await HomeOwner.findOne({ user: user?._id });
@@ -157,7 +151,7 @@ const SigninEmployee = async (payload) => {
   const { email, password } = payload;
   const user = await User.isUserExist(email);
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "user not exist with this email!");
+    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email!");
   }
   const findEmployee = await Employee.findOne({ id: user?.id });
   if (user?.role !== "employee") {
@@ -165,7 +159,7 @@ const SigninEmployee = async (payload) => {
   }
 
   if (!findEmployee || findEmployee?.isDeleted) {
-    throw new AppError(httpStatus.NOT_FOUND, "your account is deleted!");
+    throw new AppError(httpStatus.NOT_FOUND, "Your account is deleted!");
   }
   const { password: hasedPassword } = user;
   const isPasswordMatched = await User.isPasswordMatched(
@@ -173,7 +167,7 @@ const SigninEmployee = async (payload) => {
     hasedPassword
   );
   if (!isPasswordMatched) {
-    throw new AppError(httpStatus.BAD_REQUEST, "password do not match!");
+    throw new AppError(httpStatus.BAD_REQUEST, "Password do not match!");
   }
   // if (!verified) {
   //   throw new AppError(
@@ -236,7 +230,7 @@ const refreshToken = async (token) => {
 const forgotPassword = async ({ email, newPassword, confirmPassword }) => {
   const isUserExist = await User.isUserExist(email);
   if (!isUserExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "user not exist with this email");
+    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email");
   }
   const isOtpVerified = await Otp.findOne({
     email: email,
@@ -248,7 +242,7 @@ const forgotPassword = async ({ email, newPassword, confirmPassword }) => {
   if (newPassword !== confirmPassword) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "confirm password and new password does not match"
+      "Confirm password and New password do not match"
     );
   }
   const hasedPassword = await bcrypt.hash(
@@ -270,7 +264,7 @@ const forgotPassword = async ({ email, newPassword, confirmPassword }) => {
     if (!result) {
       throw new AppError(
         httpStatus.BAD_REQUEST,
-        "something went wrong. please try again "
+        "Something went wrong. please try again "
       );
     }
     await Otp.deleteMany({ email: email, type: "forgotPassWordVerification" });
@@ -294,14 +288,17 @@ const resetPassword = async (id, payload) => {
     throw new AppError(httpStatus.BAD_REQUEST, "User Information Not Found");
   }
 
-  const isPasswordMatched = bcrypt.compare(isUserExist?.password, oldPassword);
+  const isPasswordMatched = await bcrypt.compare(
+    isUserExist?.password,
+    oldPassword
+  );
   if (!isPasswordMatched) {
-    throw new AppError(httpStatus.BAD_REQUEST, "Old Password Does Not Match");
+    throw new AppError(httpStatus.BAD_REQUEST, "Old password do not match");
   }
   if (payload?.newPassword !== payload?.confirmPassword) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      "new password and confirm password does not match"
+      "New password and Confirm password do not match"
     );
   }
   const hashedPassword = await bcrypt.hash(
