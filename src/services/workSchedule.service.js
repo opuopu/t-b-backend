@@ -75,7 +75,6 @@ const getAllWorkSchedule = async (query) => {
 };
 
 const getAllWorkScheduleByRoom = async (query) => {
-  console.log(query);
   const workScheduleModel = new QueryBuilder(
     WorkSchedule.find().populate({
       path: "schedule",

@@ -108,6 +108,19 @@ const getScheduleDataByEmployee = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllEmployeesScheduleDataForDownload = catchAsync(async (req, res) => {
+  console.log(req.user);
+  const result =
+    await AssignScheduleServices.getAllEmployeesScheduleDataForDownload(
+      req?.user?.userId
+    );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Employee schedule data retrieved  successfully",
+    data: result,
+  });
+});
 const getAssignScheduleByEmployeeId = catchAsync(async (req, res) => {
   console.log(req.body);
   const result = await AssignScheduleServices.getAssignScheduleByEmployeeId(
@@ -132,5 +145,6 @@ const AssignScheduleControllers = {
   employeeWorkDetailsByScheduleId,
   getScheduleDataByEmployee,
   getAssignScheduleByEmployeeId,
+  getAllEmployeesScheduleDataForDownload,
 };
 export default AssignScheduleControllers;

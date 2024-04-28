@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { SundayToThursday } from "../constant/workingDays.js";
 import AssignSchedule from "../models/AssignWorkSchedule.model.js";
 import AppError from "../errors/AppError.js";
@@ -211,6 +211,105 @@ const getWeekendData = async (userId) => {
   return result;
 };
 
+const getAllEmployeesScheduleDataForDownload = async (homeOwnerId) => {
+  const result = await AssignSchedule.aggregate([
+    {
+      $match: {
+        homeOwner: new mongoose.Types.ObjectId(homeOwnerId),
+      },
+    },
+    {
+      $lookup: {
+        from: "employees",
+        localField: "employee",
+        foreignField: "_id",
+        as: "employee",
+      },
+    },
+    {
+      $unwind: "$employee",
+    },
+    {
+      $lookup: {
+        from: "workschedules",
+        localField: "_id",
+        foreignField: "schedule",
+        as: "schedules",
+      },
+    },
+    {
+      $unwind: "$schedules",
+    },
+    {
+      $lookup: {
+        from: "rooms",
+        let: { roomId: "$schedules.room" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$_id", "$$roomId"] },
+            },
+          },
+          {
+            $lookup: {
+              from: "homes",
+              localField: "home",
+              foreignField: "_id",
+              as: "home",
+            },
+          },
+          {
+            $unwind: "$home",
+          },
+          {
+            $project: {
+              _id: 0,
+              title: { $ifNull: ["$title", "N/A"] },
+              home: "$home.title",
+            },
+          },
+        ],
+        as: "room",
+      },
+    },
+    {
+      $unwind: {
+        path: "$room",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        employee: { $first: "$employee.name" },
+        weekend: { $first: "$weekend" },
+        workingDays: { $first: "$workingDays" },
+        schedules: {
+          $push: {
+            $mergeObjects: [
+              "$schedules",
+              {
+                room: { $ifNull: ["$room.title", "N/A"] },
+                home: { $ifNull: ["$room.home", "N/A"] },
+              },
+            ],
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        workingDays: 1,
+        weekend: 1,
+        employee: 1,
+        schedules: 1,
+      },
+    },
+  ]);
+  return result;
+};
+
 const employeeWorkDetailsByScheduleId = async (id) => {
   const ScheduleId = new Types.ObjectId(id);
   const result = await AssignSchedule.aggregate([
@@ -333,5 +432,6 @@ const AssignScheduleServices = {
   getScheduleDataByEmployee,
   employeeWorkDetailsByScheduleId,
   getAssignScheduleByEmployeeId,
+  getAllEmployeesScheduleDataForDownload,
 };
 export default AssignScheduleServices;

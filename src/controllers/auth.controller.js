@@ -17,8 +17,8 @@ const signupHomeOwnerIntoDB = catchAsync(async (req, res, next) => {
 });
 const signupEmployeeIntoDb = catchAsync(async (req, res) => {
   const { userId } = req.user;
+  console.log(req?.file, req?.body);
   req.body.homeOwner = userId;
-
   if (req?.file) {
     req.body.image = createFileDetails("profile", req?.file?.filename);
   }

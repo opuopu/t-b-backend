@@ -36,6 +36,7 @@ const signupHomeOwnerIntoDB = async (payload) => {
 };
 // signup employee
 const signupEmployeeIntoDb = async (payload) => {
+  console.log(payload);
   const { email, password, phoneNumber, needPasswordChange, ...others } =
     payload;
   const id = await generateNewEmployeeId();

@@ -10,10 +10,11 @@ import AppError from "../errors/AppError.js";
 import { dateCompare } from "../utils/date.utils.js";
 import Employee from "../models/employee.model.js";
 const insertAdditionalTaskIntoDb = async (payload) => {
+  console.log(payload);
   const { workingDate } = payload;
   let status;
   let nextOccurrence;
-  if (payload.recurrence === "nm") {
+  if (payload.recurrence === "weekly") {
     status = "ongoing";
     nextOccurrence = nextWeekDay(workingDate);
   } else if (payload.recurrence === "monthly") {

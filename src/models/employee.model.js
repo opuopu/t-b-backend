@@ -40,13 +40,15 @@ const employeeSchema = new Schema(
     },
     passport: {
       passportNumber: {
-        type: String,
+        type: Number,
       },
       expireDate: {
         type: Date,
       },
     },
-
+    license: {
+      type: String,
+    },
     access: [
       {
         type: String,

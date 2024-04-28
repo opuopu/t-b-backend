@@ -4,7 +4,11 @@ import { USER_ROLE } from "../constant/user.role.js";
 import AssignScheduleControllers from "../controllers/assignScheudle.controller.js";
 
 const router = express.Router();
-
+router.get(
+  "/download",
+  auth(USER_ROLE.HOMEOWNER),
+  AssignScheduleControllers.getAllEmployeesScheduleDataForDownload
+);
 router.get(
   "/sunday-thursday",
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
@@ -59,6 +63,11 @@ router.patch(
   "/:id",
   auth(USER_ROLE.HOMEOWNER),
   AssignScheduleControllers.updateAssignSchedule
+);
+router.get(
+  "/download",
+  auth(USER_ROLE.HOMEOWNER),
+  AssignScheduleControllers.getAllEmployeesScheduleDataForDownload
 );
 
 const assignSchedulesRoutes = router;
