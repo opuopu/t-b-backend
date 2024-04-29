@@ -10,8 +10,10 @@ import AppError from "../errors/AppError.js";
 import { dateCompare } from "../utils/date.utils.js";
 import Employee from "../models/employee.model.js";
 const insertAdditionalTaskIntoDb = async (payload) => {
-  console.log(payload);
   const { workingDate } = payload;
+  if (!payload?.employee) {
+    throw new AppError(httpStatus.BAD_REQUEST, "Please select an employee");
+  }
   let status;
   let nextOccurrence;
   if (payload.recurrence === "weekly") {

@@ -14,7 +14,7 @@ const insertRecipeIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipe created successfully",
+    message: "Recipe created successfully",
     data: result,
   });
 });

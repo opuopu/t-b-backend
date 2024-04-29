@@ -36,7 +36,6 @@ const signupHomeOwnerIntoDB = async (payload) => {
 };
 // signup employee
 const signupEmployeeIntoDb = async (payload) => {
-  console.log(payload);
   const { email, password, phoneNumber, needPasswordChange, ...others } =
     payload;
   const id = await generateNewEmployeeId();
@@ -55,6 +54,9 @@ const signupEmployeeIntoDb = async (payload) => {
       httpStatus.BAD_REQUEST,
       "User already exist with the same email!"
     );
+  }
+  if (!payload?.image) {
+    others.image = "/uploads/profile/default.png";
   }
   const session = await mongoose.startSession();
   let result;
@@ -95,7 +97,10 @@ const SigninHomeOwner = async (payload) => {
   const user = await User.isUserExist(email);
   console.log(user);
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email!");
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "User does not exist with this email!"
+    );
   }
   if (user?.role !== "homeowner") {
     throw new AppError(httpStatus.NOT_FOUND, "you are not authorized!");
@@ -152,7 +157,7 @@ const SigninEmployee = async (payload) => {
   const { email, password } = payload;
   const user = await User.isUserExist(email);
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email!");
+    throw new AppError(httpStatus.NOT_FOUND, " with this email!");
   }
   const findEmployee = await Employee.findOne({ id: user?.id });
   if (user?.role !== "employee") {
@@ -231,7 +236,10 @@ const refreshToken = async (token) => {
 const forgotPassword = async ({ email, newPassword, confirmPassword }) => {
   const isUserExist = await User.isUserExist(email);
   if (!isUserExist) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not exist with this email");
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      "User does not exist with this email"
+    );
   }
   const isOtpVerified = await Otp.findOne({
     email: email,

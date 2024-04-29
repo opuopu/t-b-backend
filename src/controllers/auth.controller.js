@@ -66,7 +66,7 @@ const forgotPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Password updated succesfully",
+    message: "Password updated successfully",
     data: result,
   });
 });
@@ -77,7 +77,7 @@ const resetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Password updated succesfully",
+    message: "Password updated successfully",
     data: result,
   });
 });
