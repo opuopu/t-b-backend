@@ -2,7 +2,7 @@ import QueryBuilder from "../builder/QueryBuilder.js";
 import GroceryList from "../models/groceryList.model.js";
 
 const insertGroceryListIntoDB = async (payload) => {
-  const result = await GroceryList.create(payload);
+  const result = await GroceryList.insertMany(payload);
   return result;
 };
 

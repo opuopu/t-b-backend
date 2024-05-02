@@ -5,9 +5,14 @@ import sendResponse from "../utils/sendResponse.js";
 import TaskListServices from "../services/taskList.service.js";
 
 const insertTaskListIntoDB = catchAsync(async (req, res) => {
-  // const { userId } = req?.user;
-  // req.body.homeOwner = userId;
-  const result = await TaskListServices.insertTaskIntoDB(req.body);
+  const category = req?.params?.id;
+
+  const data = req?.body?.map((item) => ({
+    category: category,
+    title: item?.title,
+  }));
+  console.log(data);
+  const result = await TaskListServices.insertTaskIntoDB(data);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

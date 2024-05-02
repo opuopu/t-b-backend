@@ -4,7 +4,12 @@ import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
 
 const insertGroceryListIntoDB = catchAsync(async (req, res) => {
-  const result = await groceryListServices.insertGroceryListIntoDB(req.body);
+  const category = req.params.id;
+  const data = req.body.map((data) => ({
+    category: category,
+    name: data?.name,
+  }));
+  const result = await groceryListServices.insertGroceryListIntoDB(data);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

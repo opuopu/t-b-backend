@@ -2,7 +2,7 @@ import QueryBuilder from "../builder/QueryBuilder.js";
 import TaskList from "../models/taskList.model.js";
 
 const insertTaskIntoDB = async (payload) => {
-  const result = await TaskList.create(payload);
+  const result = await TaskList.insertMany(payload);
   return result;
 };
 

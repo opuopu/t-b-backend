@@ -7,11 +7,7 @@ const router = express.Router();
 
 const groceryListRoutes = router;
 
-router.post(
-  "/",
-  auth(USER_ROLE.HOMEOWNER),
-  groceryListControllers.insertGroceryListIntoDB
-);
+router.post("/:id", groceryListControllers.insertGroceryListIntoDB);
 router.get(
   "/",
   auth(USER_ROLE.HOMEOWNER, USER_ROLE.EMPLOYEE),
