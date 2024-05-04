@@ -20,7 +20,7 @@ const insertUserGroceryListsIntoDB = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "user grocery lists inserted successfully",
+    message: "User grocery list inserted successfully",
     data: result,
   });
 });

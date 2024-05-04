@@ -87,7 +87,7 @@ const addToFavoriteRecipes = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "recipe successfully added to favorite lists",
+    message: "Recipe successfully added to favorites list",
     data: result,
   });
 });

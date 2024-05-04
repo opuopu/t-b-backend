@@ -13,6 +13,10 @@ import { generateNewHomeOwnerId } from "../utils/homeowner.utils.js";
 import { nextFiveDay } from "../utils/date.utils.js";
 
 const createAnOtpIntoDB = async ({ email, type }) => {
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found with this email");
+  }
   const otp = generateOtp();
   const expiresAt = new Date(Date.now() + 3600000);
   const decryptOtp = await bcrypt.hash(otp, Number(config.bcrypt_salt_rounds));
@@ -51,7 +55,6 @@ const createAnOtpIntoDB = async ({ email, type }) => {
   );
 };
 const veriFySignupOtp = async (payload) => {
-  console.log(payload);
   // check is exist otp
   const date = new Date();
   const isExistOtp = await Otp.findOne({
