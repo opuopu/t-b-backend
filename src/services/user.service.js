@@ -9,7 +9,6 @@ import { calculateRemainingDays, dateCompare } from "../utils/date.utils.js";
 // get me
 const getme = async (userId, role) => {
   let result;
-  console.log(userId);
   const date = new Date();
   if (role === "homeowner") {
     result = await HomeOwner.findOne({ user: userId }).populate("user");

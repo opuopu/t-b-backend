@@ -98,6 +98,7 @@ const veriFySignupOtp = async (payload) => {
     const authObj = {
       email: payload.email,
       password: payload.password,
+      phoneNumber: payload?.phoneNumber,
       role: payload.role,
       id: id,
       trialExpirationDate: nextFiveDay(date),
