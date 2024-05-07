@@ -2,8 +2,11 @@ import { z } from "zod";
 
 const signupHomeOwnerSchema = z.object({
   body: z.object({
-    name: z.string({
-      required_error: "Name is required",
+    firstName: z.string({
+      required_error: "first name is required",
+    }),
+    lastName: z.string({
+      required_error: "lastName is required",
     }),
     email: z.string().email({ required_error: "Email is required" }),
     password: z
