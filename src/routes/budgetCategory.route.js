@@ -11,7 +11,7 @@ router.post(
   "/",
   upload.single("file"),
   parseData(),
-  auth(USER_ROLE.HOMEOWNER),
+  // auth(USER_ROLE.HOMEOWNER),
   budgetCategoryControllers.insertBudgetCategoryIntoDb
 );
 router.get(
