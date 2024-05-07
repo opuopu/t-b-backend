@@ -7,7 +7,15 @@ const homeOwnerSchema = new Schema(
     },
     name: {
       type: String,
-      required: [true, "name is required"],
+      default: "",
+    },
+    firstName: {
+      type: String,
+      required: [true, "first name is required"],
+    },
+    lastName: {
+      type: String,
+      required: [true, "last name is required"],
     },
     id: {
       type: String,
