@@ -107,7 +107,8 @@ const veriFySignupOtp = async (payload) => {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
     const homeOwnerObject = {
-      name: payload?.name,
+      firstName: payload?.firstName,
+      lastName: payload?.lastName,
       user: createUser[0]?._id,
       refferalCode: generateRefferalCode(),
       image: "/uploads/profile/defaultProfile.png",
