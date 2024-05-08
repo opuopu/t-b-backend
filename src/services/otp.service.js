@@ -14,11 +14,8 @@ import { nextFiveDay } from "../utils/date.utils.js";
 
 const createAnOtpIntoDB = async ({ email, type }) => {
   const user = await User.findOne({ email: email });
-  if (user) {
-    throw new AppError(
-      httpStatus.NOT_FOUND,
-      "User already exist with this email"
-    );
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
   const otp = generateOtp();
   const expiresAt = new Date(Date.now() + 3600000);
