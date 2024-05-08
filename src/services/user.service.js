@@ -18,6 +18,7 @@ const getme = async (userId, role) => {
   const formatedObject = {
     _id: result?.user?._id,
     name: result?.name,
+    employee?: result?._id,
     firstName: result?.firstName,
     lastName: result?.lastName,
     image: result?.image,
