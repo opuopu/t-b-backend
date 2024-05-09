@@ -13,7 +13,10 @@ import { generateNewHomeOwnerId } from "../utils/homeowner.utils.js";
 import { nextFiveDay } from "../utils/date.utils.js";
 
 const createAnOtpIntoDB = async ({ email, type }) => {
-  const user = await User.findOne({ email: email });
+  let user;
+  if (type !== "signupVerification") {
+    user = await User.findOne({ email: email });
+  }
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
