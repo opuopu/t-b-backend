@@ -16,10 +16,11 @@ const createAnOtpIntoDB = async ({ email, type }) => {
   let user;
   if (type !== "signupVerification") {
     user = await User.findOne({ email: email });
+    if (!user) {
+      throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    }
   }
-  if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not found");
-  }
+
   const otp = generateOtp();
   const expiresAt = new Date(Date.now() + 3600000);
   const decryptOtp = await bcrypt.hash(otp, Number(config.bcrypt_salt_rounds));
